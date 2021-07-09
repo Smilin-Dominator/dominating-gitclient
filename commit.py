@@ -75,15 +75,28 @@ def main():
                     os.system("cls")
                     greeting()
                     print(f"\n1) {bcolors.BOLD}Stash{bcolors.ENDC}\n"
-                          f"2) {bcolors.OKBLUE}Pop Stash{bcolors.ENDC}\n"
+                          f"2) {bcolors.OKBLUE}View Stashes{bcolors.ENDC}\n"
                           f"3) {bcolors.OKGREEN}Apply Stash{bcolors.ENDC}\n"
                           f"99) {bcolors.WARNING}Previous Menu{bcolors.ENDC}")
                     choice2 = input(": ")
                     match choice2:
                         case "1":
-                            pass
+                            msg = input("\n[*] Message: ")
+                            string = f'git stash save "{msg}"'
+                            print(f"\n{subprocess.check_output(string).decode()}\n")
+                            enterprompt()
                         case "2":
-                            pass
+                            print(f"\n{subprocess.check_output('git stash list').decode()}\n")
+                            enterprompt()
                         case "3":
-                            pass
+                            slist = subprocess.check_output('git stash list').decode().splitlines()
+                            print("\nStashes: \n")
+                            for i in range(len(slist)):
+                                print(f"{i+1}) {slist[i]}")
+                            cho = int(input("\n[+] Which Stash Would You Like To Apply?: "))
+                            stash = slist[cho - 1].split(':')[0]
+                            string = f"git stash apply {stash}"
+                            print(f"\n{subprocess.check_output(string).decode()}\n")
+                            enterprompt()
+
 
