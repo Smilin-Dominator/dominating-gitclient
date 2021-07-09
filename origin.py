@@ -20,7 +20,14 @@ def main():
                 print(f"\n{subprocess.getoutput('git pull origin')}\n")
                 enterprompt()
             case "2":
-                print(f"\n{subprocess.getoutput('git push origin')}\n")
+                a = subprocess.getoutput('git push origin').splitlines()
+                if "has no upstream branch." in a[0]:
+                    a = a[0].split(" ")
+                    branch = a[4]
+                    b = subprocess.getoutput(f'git push --set-upstream origin {branch}')
+                    print(f'\n{b}\n')
+                else:
+                    print(f"\n{subprocess.getoutput('git push origin')}\n")
                 enterprompt()
             case "3":
                 print(f"\n{subprocess.getoutput('git status')}\n")
