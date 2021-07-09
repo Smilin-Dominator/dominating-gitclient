@@ -1,5 +1,6 @@
 import os
 import sys
+from colours import bcolors
 
 
 def syner(er):
@@ -7,7 +8,7 @@ def syner(er):
 
 
 def greeting():
-    print("""
+    print(f"""{bcolors.HEADER}
          .oooooo..o                    o8o  oooo   o8o              o8o                                  
         d8P'    `Y8                    `"'  `888   `"'              `YP                                  
         Y88bo.      ooo. .oo.  .oo.   oooo   888  oooo  ooo. .oo.    '                                   
@@ -22,8 +23,7 @@ def greeting():
          888      888 888   888  888   888   888   888   888   888   .oP"888    888   888   888  888     
          888     d88' 888   888  888   888   888   888   888   888  d8(  888    888 . 888   888  888     
         o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b    
-    """)
-    print("\n[*] Welcome To SmilinGitGud! A Git Client Made From Python!")
+    {bcolors.ENDC}""")
 
 
 def interface():

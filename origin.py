@@ -1,7 +1,13 @@
 import subprocess
+import os
+from colours import bcolors
+from __main__ import greeting
 
 
 def main(syner):
+    os.system("cls")
+    greeting()
+    print(f"1 For {bcolors.OKCYAN}Pull From Origin{bcolors.ENDC}")
     choice = input(": ")
     match choice:
         case "1":
