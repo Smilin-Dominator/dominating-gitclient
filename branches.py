@@ -55,5 +55,8 @@ def main():
                 b = get_branches()
                 bra = int(input("[*] Which Branch Would You Like To Delete?: "))
                 cmd = f"git branch -d {b[bra - 1]}"
-                print(f"\n{subprocess.call(cmd, shell=True)}\n")
+                try:
+                    print(f"\n{subprocess.call(cmd, shell=True)}\n")
+                except:
+                    print(f"[*] Invalid Branch")
                 enterprompt()

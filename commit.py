@@ -73,7 +73,10 @@ def main():
                     print(f"{i+1}) {b[i]}")
                 bra = int(input("\n[+] Which Branch Would You Like To Checkout?: "))
                 cmd = "git checkout " + b[bra - 1]
-                print(f"\n{subprocess.check_output(cmd).decode()}\n")
+                try:
+                    print(f"\n{subprocess.check_output(cmd).decode()}\n")
+                except:
+                    print(f"[*] Invalid Branch")
                 enterprompt()
             case "3":
                 choice2 = '1'
@@ -90,7 +93,10 @@ def main():
                         case "1":
                             msg = input("\n[*] Message: ")
                             string = f'git stash save "{msg}"'
-                            print(f"\n{subprocess.check_output(string).decode()}\n")
+                            try:
+                                print(f"\n{subprocess.check_output(string).decode()}\n")
+                            except:
+                                print("[*] Invalid stash.")
                             enterprompt()
                         case "2":
                             print(f"\n{subprocess.check_output('git stash list').decode()}\n")
