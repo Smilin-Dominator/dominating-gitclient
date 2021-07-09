@@ -9,9 +9,9 @@ def main():
     while choice != "99":
         os.system("cls")
         greeting()
-        print(f"\n1) {bcolors.BOLD}Commit Files{bcolors.ENDC}\n"
-              f"2) {bcolors.OKBLUE}Checkout Branch{bcolors.ENDC}\n"
-              f"3) {bcolors.OKGREEN}Stash{bcolors.ENDC}\n"
+        print(f"\n1) {bcolors.OKCYAN}Commit Files{bcolors.ENDC}\n"
+              f"2) {bcolors.OKGREEN}Checkout Branch{bcolors.ENDC}\n"
+              f"3) {bcolors.OKBLUE}Stash{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
         choice = input(": ")
         match choice:
@@ -74,7 +74,7 @@ def main():
                 while choice2 != "99":
                     os.system("cls")
                     greeting()
-                    print(f"\n1) {bcolors.BOLD}Stash{bcolors.ENDC}\n"
+                    print(f"\n1) {bcolors.HEADER}Stash{bcolors.ENDC}\n"
                           f"2) {bcolors.OKBLUE}View Stashes{bcolors.ENDC}\n"
                           f"3) {bcolors.OKGREEN}Apply Stash{bcolors.ENDC}\n"
                           f"4) {bcolors.OKCYAN}Remove Stash{bcolors.ENDC}\n"
@@ -95,9 +95,12 @@ def main():
                             for i in range(len(slist)):
                                 print(f"{i+1}) {slist[i]}")
                             cho = int(input("\n[+] Which Stash Would You Like To Apply?: "))
-                            stash = slist[cho - 1].split(':')[0]
-                            string = f"git stash apply {stash}"
-                            print(f"\n{subprocess.check_output(string).decode()}\n")
+                            try:
+                                stash = slist[cho - 1].split(':')[0]
+                                string = f"git stash apply {stash}"
+                                print(f"\n{subprocess.check_output(string).decode()}\n")
+                            except:
+                                print("[*] No Such Stash")
                             enterprompt()
                         case "4":
                             slist = subprocess.check_output('git stash list').decode().splitlines()
@@ -105,9 +108,12 @@ def main():
                             for i in range(len(slist)):
                                 print(f"{i + 1}) {slist[i]}")
                             cho = int(input("\n[+] Which Stash Would You Like To Drop?: "))
-                            stash = slist[cho - 1].split(':')[0]
-                            string = f"git stash drop {stash}"
-                            print(f"\n{subprocess.check_output(string).decode()}\n")
+                            try:
+                                stash = slist[cho - 1].split(':')[0]
+                                string = f"git stash drop {stash}"
+                                print(f"\n{subprocess.check_output(string).decode()}\n")
+                            except:
+                                print("[*] No Such Stash")
                             enterprompt()
 
 

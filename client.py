@@ -13,6 +13,7 @@ def main(path, syner):
         print(f"\n1) {bcolors.OKGREEN}Push/Pull Related Options{bcolors.ENDC}\n"
               f"2) {bcolors.OKBLUE}Commit, Checkout And Stash{bcolors.ENDC}\n"
               f"3) {bcolors.OKCYAN}Show Differences{bcolors.ENDC}\n"
+              f"4) {bcolors.HEADER}Branch Administration{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Quit{bcolors.ENDC}")
         choi = input(": ")
         match choi:
@@ -27,9 +28,12 @@ def main(path, syner):
                 enterprompt()
                 a = subprocess.call("git diff", shell=True)
                 print(a)
+            case "4":
+                import branches
+                branches.main()
             case "99":
                 os.system("cls")
                 quit(0)
             case _:
-                print(syner("Invalid Option"))
+                pass
 
