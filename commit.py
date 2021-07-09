@@ -45,6 +45,7 @@ def main():
               f"2) {bcolors.OKGREEN}Checkout Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKBLUE}Stash{bcolors.ENDC}\n"
               f"4) {bcolors.FAIL}View Changed Files{bcolors.ENDC}\n"
+              f"5) {bcolors.OKGREEN}Add Files To Git{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
         choice = input(": ")
         match choice:
@@ -123,6 +124,23 @@ def main():
             case "4":
                 all_files()
                 enterprompt()
+            case "5":
+                a = subprocess.check_output("git ls-files . --exclude-standard --others").decode().splitlines()
+                b = []
+                print("[*] Files;")
+                for i in range(len(a)):
+                    print(f"[+] {a[i]}")
+                    b.append(a[i])
+                c = input("[*] Which File(s) Do You Want To Add? (all / [files seperated by spaces]): ")
+                try:
+                    c = c.split(' ')
+                    if c[0] == "all":
+                        print(f"\n{subprocess.check_output('git add *').decode()}\n")
+                    else:
+                        cmd = "git add " + ' '.join(c)
+                        print(f"\n{subprocess.check_output(cmd).decode()}\n")
+                except:
+                    print("[*] No Such File.")
 
 
 
