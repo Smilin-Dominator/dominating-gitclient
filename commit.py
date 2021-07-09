@@ -4,6 +4,38 @@ import os
 import subprocess
 
 
+def all_files():
+    mfilelist = []
+    nfilelist = []
+    dfilelist = []
+    a = subprocess.check_output("git status").decode().splitlines()
+    for supposed_file in a:
+        if supposed_file.startswith("\tnew file:"):
+            name = supposed_file.replace(" ", "").replace("newfile:", '')
+            string = "\tNew File: " + name
+            nfilelist.append(string)
+        elif supposed_file.startswith("\tmodified: "):
+            name = supposed_file.replace(" ", "").replace("modified:", '')
+            string = "\tModified File: " + name
+            mfilelist.append(string)
+        elif supposed_file.startswith("\tdeleted: "):
+            name = supposed_file.replace(" ", "").replace("deleted:", '')
+            string = "\tDeleted File: " + name
+            dfilelist.append(string)
+    if len(nfilelist) > 0:
+        print("\nNew Files: \n")
+        for file in nfilelist:
+            print(file)
+    if len(mfilelist) > 0:
+        print("\nModified Files: \n")
+        for file in mfilelist:
+            print(file)
+    if len(dfilelist) > 0:
+        print("\nDeleted Files: \n")
+        for file in dfilelist:
+            print(file)
+
+
 def main():
     choice = "1"
     while choice != "99":
@@ -12,39 +44,12 @@ def main():
         print(f"\n1) {bcolors.OKCYAN}Commit Files{bcolors.ENDC}\n"
               f"2) {bcolors.OKGREEN}Checkout Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKBLUE}Stash{bcolors.ENDC}\n"
+              f"4) {bcolors.FAIL}View Changed Files{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
         choice = input(": ")
         match choice:
             case "1":
-                mfilelist = []
-                nfilelist = []
-                dfilelist = []
-                a = subprocess.check_output("git status").decode().splitlines()
-                for supposed_file in a:
-                    if supposed_file.startswith("\tnew file:"):
-                        name = supposed_file.replace(" ", "").replace("newfile:", '')
-                        string = "\tNew File: " + name
-                        nfilelist.append(string)
-                    elif supposed_file.startswith("\tmodified: "):
-                        name = supposed_file.replace(" ", "").replace("modified:", '')
-                        string = "\tModified File: " + name
-                        mfilelist.append(string)
-                    elif supposed_file.startswith("\tdeleted: "):
-                        name = supposed_file.replace(" ", "").replace("deleted:", '')
-                        string = "\tDeleted File: " + name
-                        dfilelist.append(string)
-                if len(nfilelist) > 0:
-                    print("\nNew Files: \n")
-                    for file in nfilelist:
-                        print(file)
-                if len(mfilelist) > 0:
-                    print("\nModified Files: \n")
-                    for file in mfilelist:
-                        print(file)
-                if len(dfilelist) > 0:
-                    print("\nDeleted Files: \n")
-                    for file in dfilelist:
-                        print(file)
+                all_files()
                 print("\n\n[*] Which Files Would You Like To Commit? (all / [enter the files sep. by spaces]")
                 comlist = input("[*] ")
                 if comlist == "all":
@@ -115,6 +120,9 @@ def main():
                             except:
                                 print("[*] No Such Stash")
                             enterprompt()
+            case "4":
+                all_files()
+                enterprompt()
 
 
 
