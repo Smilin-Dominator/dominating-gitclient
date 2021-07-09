@@ -33,15 +33,18 @@ def main():
                         name = supposed_file.replace(" ", "").replace("deleted:", '')
                         string = "\tDeleted File: " + name
                         dfilelist.append(string)
-                print("\nNew Files: \n")
-                for file in nfilelist:
-                    print(file)
-                print("\nModified Files: \n")
-                for file in mfilelist:
-                    print(file)
-                print("\nDeleted Files: \n")
-                for file in dfilelist:
-                    print(file)
+                if len(nfilelist) > 0:
+                    print("\nNew Files: \n")
+                    for file in nfilelist:
+                        print(file)
+                if len(mfilelist) > 0:
+                    print("\nModified Files: \n")
+                    for file in mfilelist:
+                        print(file)
+                if len(dfilelist) > 0:
+                    print("\nDeleted Files: \n")
+                    for file in dfilelist:
+                        print(file)
                 print("\n\n[*] Which Files Would You Like To Commit? (all / [enter the files sep. by spaces]")
                 comlist = input("[*] ")
                 if comlist == "all":
@@ -66,3 +69,21 @@ def main():
                 cmd = "git checkout " + b[bra - 1]
                 print(f"\n{subprocess.check_output(cmd).decode()}\n")
                 enterprompt()
+            case "3":
+                choice2 = '1'
+                while choice2 != "99":
+                    os.system("cls")
+                    greeting()
+                    print(f"\n1) {bcolors.BOLD}Stash{bcolors.ENDC}\n"
+                          f"2) {bcolors.OKBLUE}Pop Stash{bcolors.ENDC}\n"
+                          f"3) {bcolors.OKGREEN}Apply Stash{bcolors.ENDC}\n"
+                          f"99) {bcolors.WARNING}Previous Menu{bcolors.ENDC}")
+                    choice2 = input(": ")
+                    match choice2:
+                        case "1":
+                            pass
+                        case "2":
+                            pass
+                        case "3":
+                            pass
+
