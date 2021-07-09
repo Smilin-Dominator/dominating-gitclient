@@ -31,7 +31,8 @@ def interface():
         "mysql": r"C:\Users\Devisha\Documents\GitHub\mysql-and-python-billing",
         "devios": r"C:\Users\Devisha\Documents\GitHub\DeviOS",
         "coding_projects": r"C:\Users\Devisha\Documents\GitHub\coding-projects",
-        "devicoin": r"C:\Users\Devisha\Documents\GitHub\flask_project"
+        "devicoin": r"C:\Users\Devisha\Documents\GitHub\flask_project",
+        "here": r"C:\Users\Devisha\Documents\GitHub\GitClient"
     }
     if len(sys.argv) < 2:
         print(syner("Not Enough Arguments."))

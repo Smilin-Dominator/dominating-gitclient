@@ -11,4 +11,4 @@ class bcolors:
 
 
 def enterprompt():
-    input("\n(enter) to continue..\n")
+    input(f"\n{bcolors.FAIL}(enter) to continue..{bcolors.ENDC}\n")
