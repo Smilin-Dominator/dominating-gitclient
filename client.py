@@ -7,13 +7,14 @@ import subprocess
 def main(path, syner):
     os.chdir(path)
     choi = "1"
-    while choi != "5":
+    while choi != "99":
         os.system("cls")
         greeting()
         print(f"\n1) {bcolors.OKGREEN}Push/Pull Related Options{bcolors.ENDC}\n"
               f"2) {bcolors.OKBLUE}Commit, Checkout And Stash{bcolors.ENDC}\n"
               f"3) {bcolors.OKCYAN}Show Differences{bcolors.ENDC}\n"
               f"4) {bcolors.HEADER}Branch Administration{bcolors.ENDC}\n"
+              f"5) {bcolors.OKGREEN}Commit Log{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Quit{bcolors.ENDC}")
         choi = input(": ")
         match choi:
@@ -31,6 +32,10 @@ def main(path, syner):
             case "4":
                 import branches
                 branches.main()
+            case "5":
+                a = subprocess.call("git log --graph", shell=True)
+                print(a)
+                enterprompt()
             case "99":
                 os.system("cls")
                 quit(0)
