@@ -10,8 +10,7 @@ def main(path, syner):
     while choi != "5":
         os.system("cls")
         greeting()
-        print("\nWhich Set Of Option Would You Like To See?\n"
-              f"1) {bcolors.OKGREEN}Push/Pull Related Options{bcolors.ENDC}\n"
+        print(f"\n1) {bcolors.OKGREEN}Push/Pull Related Options{bcolors.ENDC}\n"
               f"2) {bcolors.OKBLUE}Commit, Checkout And Stash{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Quit{bcolors.ENDC}")
         choi = input(": ")

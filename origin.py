@@ -9,7 +9,7 @@ def main():
     while choice != 99:
         os.system("cls")
         greeting()
-        print(f"1) {bcolors.OKCYAN}Pull From Origin{bcolors.ENDC}\n"
+        print(f"\n1) {bcolors.OKCYAN}Pull From Origin{bcolors.ENDC}\n"
               f"2) {bcolors.OKBLUE}Push To Origin{bcolors.ENDC}\n"
               f"3) {bcolors.OKGREEN}Git Status{bcolors.ENDC}\n"
               f"4) {bcolors.HEADER}Fetch From Origin{bcolors.ENDC}\n"

@@ -9,7 +9,7 @@ def main():
     while choice != "99":
         os.system("cls")
         greeting()
-        print(f"1) {bcolors.BOLD}Commit Files{bcolors.ENDC}\n"
+        print(f"\n1) {bcolors.BOLD}Commit Files{bcolors.ENDC}\n"
               f"2) {bcolors.OKBLUE}Checkout Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKGREEN}Stash{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
@@ -45,9 +45,24 @@ def main():
                 print("\n\n[*] Which Files Would You Like To Commit? (all / [enter the files sep. by spaces]")
                 comlist = input("[*] ")
                 if comlist == "all":
-                    print(f"\n{subprocess.check_output('git commit *')}\n")
+                    print(f"\n{subprocess.check_output('git commit *').decode()}\n")
                 else:
-                    comlist = comlist.split(" ")
-                    cmd = f"git commit {' '.join(comlist)}"
-                    print(f"""\n{subprocess.check_output(cmd)}\n""")
+                    try:
+                        comlist = comlist.split(" ")
+                        cmd = f"git commit {' '.join(comlist)}"
+                        print(f"""\n{subprocess.check_output(cmd).decode()}\n""")
+                    except:
+                        print("[*] Invalid Filename, Please Try Again")
+                enterprompt()
+            case "2":
+                a = subprocess.check_output("git branch").decode().splitlines()
+                b = []
+                for line in a:
+                    b.append(line.replace(" ", "").replace("*", ""))
+                print("Branches: \n")
+                for i in range(len(b)):
+                    print(f"{i+1}) {b[i]}")
+                bra = int(input("\n[+] Which Branch Would You Like To Checkout?: "))
+                cmd = "git checkout " + b[bra - 1]
+                print(f"\n{subprocess.check_output(cmd).decode()}\n")
                 enterprompt()

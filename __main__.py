@@ -38,9 +38,10 @@ def interface():
         return False
     else:
         if sys.argv[1] == "-h":
-            print(f"Codes:\n\n{codenames}")
+            print(f"Syntax: 'python3 gitclient <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
+                  f" you may enter the absolute path of the directory.")
+            quit(1)
         else:
-            greeting()
             choice = sys.argv[1]
             try:
                 path = os.path.join(codenames[choice])
