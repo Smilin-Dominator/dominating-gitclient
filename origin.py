@@ -4,21 +4,35 @@ from colours import bcolors
 from __main__ import greeting
 
 
+def enterprompt():
+    input("\n(enter) to continue..\n")
+
+
 def main(syner):
-    os.system("cls")
-    greeting()
-    print(f"1 For {bcolors.OKCYAN}Pull From Origin{bcolors.ENDC}")
-    choice = input(": ")
-    match choice:
-        case "1":
-            print(f"\n{subprocess.getoutput('git pull origin')}\n")
-        case "2":
-            print(f"\n{subprocess.getoutput('git push origin')}\n")
-        case "3":
-            print(f"\n{subprocess.getoutput('git status')}\n")
-        case "4":
-            print(f"\n{subprocess.getoutput('git fetch origin')}\n")
-        case "5":
-            quit(0)
-        case _:
-            print(syner("Wrong Command."))
+    choice = 1
+    while choice != 99:
+        os.system("cls")
+        greeting()
+        print(f"1) {bcolors.OKCYAN}Pull From Origin{bcolors.ENDC}\n"
+              f"2) {bcolors.OKBLUE}Push To Origin{bcolors.ENDC}\n"
+              f"3) {bcolors.OKGREEN}Git Status{bcolors.ENDC}\n"
+              f"4) {bcolors.HEADER}Fetch From Origin{bcolors.ENDC}\n"
+              f"99) {bcolors.WARNING}Return To Main Menu{bcolors.ENDC}")
+        choice = input(": ")
+        match choice:
+            case "1":
+                print(f"\n{subprocess.getoutput('git pull origin')}\n")
+                enterprompt()
+            case "2":
+                print(f"\n{subprocess.getoutput('git push origin')}\n")
+                enterprompt()
+            case "3":
+                print(f"\n{subprocess.getoutput('git status')}\n")
+                enterprompt()
+            case "4":
+                print(f"\n{subprocess.getoutput('git fetch origin')}\n")
+                enterprompt()
+            case "99":
+                break
+            case _:
+                pass
