@@ -12,6 +12,7 @@ def get_branches():
     print("\nBranches: \n")
     for i in range(len(b)):
         print(f"{i+1}) {b[i]}")
+    print("\n")
     return b
 
 def main():
@@ -52,7 +53,7 @@ def main():
                 enterprompt()
             case "4":
                 b = get_branches()
-                bra = int(input("[*] Which Branch Would You Likt To Delete?: "))
+                bra = int(input("[*] Which Branch Would You Like To Delete?: "))
                 cmd = f"git branch -d {b[bra - 1]}"
                 print(f"\n{subprocess.call(cmd, shell=True)}\n")
                 enterprompt()
