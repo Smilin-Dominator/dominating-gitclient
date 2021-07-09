@@ -1,14 +1,10 @@
 import subprocess
 import os
-from colours import bcolors
+from colours import bcolors, enterprompt
 from __main__ import greeting
 
 
-def enterprompt():
-    input("\n(enter) to continue..\n")
-
-
-def main(syner):
+def main():
     choice = 1
     while choice != 99:
         os.system("cls")

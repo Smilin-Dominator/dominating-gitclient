@@ -17,7 +17,7 @@ def main(path, syner):
         match choi:
             case "1":
                 import origin
-                origin.main(syner)
+                origin.main()
             case "99":
                 os.system("cls")
                 quit(0)
