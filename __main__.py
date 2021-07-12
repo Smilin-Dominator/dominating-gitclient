@@ -63,7 +63,8 @@ if __name__ == '__main__':
     proceed = interface()
     if proceed:
         import client
+        greeting()
         print("[*] Successful!")
-        client.main(proceed, syner)
+        client.main(proceed)
     else:
         quit(2)

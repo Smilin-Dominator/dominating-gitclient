@@ -1,11 +1,17 @@
 import os
+from sys import stderr
 from colours import bcolors, enterprompt
 from __main__ import greeting
 import subprocess
 
 
-def main(path, syner):
+def main(path):
     os.chdir(path)
+    try:
+        subprocess.check_output("git status", shell=True)
+    except subprocess.CalledProcessError:
+        import create
+        create.main()
     choi = "1"
     while choi != "99":
         os.system("cls")
