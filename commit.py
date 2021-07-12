@@ -45,7 +45,8 @@ def main():
               f"2) {bcolors.OKGREEN}Checkout Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKBLUE}Stash{bcolors.ENDC}\n"
               f"4) {bcolors.FAIL}View Changed Files{bcolors.ENDC}\n"
-              f"5) {bcolors.OKGREEN}Add Files To Git{bcolors.ENDC}\n"
+              f"5) {bcolors.OKCYAN}Revert Changes{bcolors.ENDC}\n"
+              f"6) {bcolors.OKGREEN}Add Files To Git{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
         choice = input(": ")
         match choice:
@@ -131,6 +132,14 @@ def main():
                 all_files()
                 enterprompt()
             case "5":
+                print("[*] Git Status Output: \n")
+                print(f"{subprocess.getoutput('git status')}\n")
+                proc = input("Proceed? (y/n): ")
+                if proc == "n":
+                    pass
+                else:
+                    print(f"\n{subprocess.call('git reset --hard', shell=True)}\n")
+            case "6":
                 a = subprocess.check_output("git ls-files . --exclude-standard --others").decode().splitlines()
                 b = []
                 print("[*] Files;")
