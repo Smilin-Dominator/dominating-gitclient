@@ -27,7 +27,7 @@ def main():
                     b = subprocess.getoutput(f'git push --set-upstream origin {branch}')
                     print(f'\n{b}\n')
                 else:
-                    print(f"\n{subprocess.getoutput('git push origin')}\n")
+                    print(f"\n{''.join(a)}\n")
                 enterprompt()
             case "3":
                 print(f"\n{subprocess.getoutput('git status')}\n")
