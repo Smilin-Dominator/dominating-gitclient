@@ -132,13 +132,18 @@ def main():
                 all_files()
                 enterprompt()
             case "5":
-                print("[*] Git Status Output: \n")
-                print(f"{subprocess.getoutput('git status')}\n")
-                proc = input("Proceed? (y/n): ")
-                if proc == "n":
-                    pass
+                print("[*] Git Status Output:")
+                a = subprocess.getoutput('git status')
+                if a.splitlines()[len(a.splitlines()) - 1] != "nothing to commit, working tree clean":
+                    print(f"\n{a}\n")
+                    proc = input("Proceed? (y/n): ")
+                    if proc == "n":
+                        pass
+                    else:
+                        print(f"\n{subprocess.call('git reset --hard', shell=True)}\n")
                 else:
-                    print(f"\n{subprocess.call('git reset --hard', shell=True)}\n")
+                    print("[*] Working Tree Clean..")
+                enterprompt()
             case "6":
                 a = subprocess.check_output("git ls-files . --exclude-standard --others").decode().splitlines()
                 b = []
