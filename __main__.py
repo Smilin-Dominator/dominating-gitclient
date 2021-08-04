@@ -41,7 +41,7 @@ def interface():
         if sys.argv[1] == "-h":
             print(f"Syntax: 'python3 gitclient <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
                   f" you may enter the absolute path of the directory.")
-            quit(1)
+            sys.exit(1)
         else:
             choice = sys.argv[1]
             try:
@@ -67,4 +67,4 @@ if __name__ == '__main__':
         print("[*] Successful!")
         client.main(proceed)
     else:
-        quit(2)
+        sys.exit(2)

@@ -44,7 +44,7 @@ def main(path):
                 enterprompt()
             case "99":
                 os.system("cls")
-                quit(0)
+                sys.exit(0)
             case _:
                 pass
 
