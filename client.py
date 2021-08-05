@@ -10,6 +10,7 @@ import origin
 import commit
 import branches
 import create
+import git_config
 from codename_config import append_codenames
 
 logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
@@ -31,6 +32,7 @@ def main(path):
               f"4) {bcolors.HEADER}Branch Administration{bcolors.ENDC}\n"
               f"5) {bcolors.OKGREEN}Commit Log{bcolors.ENDC}\n"
               f"6) {bcolors.FAIL}Add Codenames{bcolors.ENDC}\n"
+              f"7) {bcolors.OKBLUE}Git Options{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Quit{bcolors.ENDC}")
         choi = input(": ")
         match choi:
@@ -53,6 +55,8 @@ def main(path):
             case "6":
                 append_codenames()
                 enterprompt()
+            case "7":
+                git_config.main()
             case "99":
                 os.system("cls")
                 logging.info("Exited Gracefully....\n\n")
