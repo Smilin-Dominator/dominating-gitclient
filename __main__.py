@@ -1,22 +1,20 @@
 import os
 import sys
 import client
+from codename_config import read_codenames, write_codenames
 
 
-def syner(er):
+def syntax_error(er):
     return f"[*] Invalid Syntax: {er}"
 
 
 def interface():
-    codenames = {
-        "mysql": r"C:\Users\Devisha\Documents\GitHub\mysql-and-python-billing",
-        "devios": r"C:\Users\Devisha\Documents\GitHub\DeviOS",
-        "coding_projects": r"C:\Users\Devisha\Documents\GitHub\coding-projects",
-        "devicoin": r"C:\Users\Devisha\Documents\GitHub\flask_project",
-        "here": r"C:\Users\Devisha\Documents\GitHub\GitClient"
-    }
+    if os.path.exists("codenames.yml"):
+        codenames = read_codenames()
+    else:
+        codenames = write_codenames()
     if len(sys.argv) < 2:
-        print(syner("Not Enough Arguments."))
+        print(syntax_error("Not Enough Arguments."))
         return False
     else:
         exe = 0
@@ -38,13 +36,13 @@ def interface():
                 if os.path.exists(path):
                     return path
                 else:
-                    print(syner("Wrong Path"))
+                    print(syntax_error("Wrong Path"))
                     return False
-            except os.error:
+            except KeyError:
                 if os.path.exists(choice):
                     return os.path.join(choice)
                 else:
-                    print(syner("Wrong Path"))
+                    print(syntax_error("Wrong Path"))
                     return False
 
 
