@@ -1,39 +1,17 @@
 import os
 import sys
 import client
-import yaml
+from codename_config import read_codenames
 
 
-def syner(er):
+def syntax_error(er):
     return f"[*] Invalid Syntax: {er}"
-
-
-def read_codenames():
-    try:
-        with open("codenames.txt", "r") as codefile:
-            ya = yaml.load(codefile, Loader=yaml.FullLoader)
-            return ya
-    except FileNotFoundError:
-        with open("codenames.txt", 'w+') as stream:
-            print("[*] No Codename File Found..Creating...")
-            print("[!] Press \'Ctrl+C\' when done!")
-            dictionary = {"here": os.getcwd()}
-            while True:
-                try:
-                    code = input("Code: ")
-                    path = input("Path: ")
-                    dictionary[code] = path
-                except KeyboardInterrupt:
-                    break
-            yaml.dump(dictionary, stream)
-            print("[$] Success!")
-        return dictionary
 
 
 def interface():
     codenames = read_codenames()
     if len(sys.argv) < 2:
-        print(syner("Not Enough Arguments."))
+        print(syntax_error("Not Enough Arguments."))
         return False
     else:
         exe = 0
@@ -55,13 +33,13 @@ def interface():
                 if os.path.exists(path):
                     return path
                 else:
-                    print(syner("Wrong Path"))
+                    print(syntax_error("Wrong Path"))
                     return False
             except KeyError:
                 if os.path.exists(choice):
                     return os.path.join(choice)
                 else:
-                    print(syner("Wrong Path"))
+                    print(syntax_error("Wrong Path"))
                     return False
 
 

@@ -29,6 +29,7 @@ def main(path):
               f"3) {bcolors.OKCYAN}Show Differences{bcolors.ENDC}\n"
               f"4) {bcolors.HEADER}Branch Administration{bcolors.ENDC}\n"
               f"5) {bcolors.OKGREEN}Commit Log{bcolors.ENDC}\n"
+              f"6) {bcolors.FAIL}Add Codenames{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Quit{bcolors.ENDC}")
         choi = input(": ")
         match choi:
@@ -48,6 +49,8 @@ def main(path):
                 a = subprocess.call("git log --graph", shell=True)
                 print(a)
                 enterprompt()
+            case "6":
+                
             case "99":
                 os.system("cls")
                 logging.info("Exited Gracefully....\n\n")
