@@ -21,6 +21,7 @@ jobs:
       - name: Preparation
         run: |
           pip3 install -r requirements.txt
+          python -m pip install https://github.com/rokm/pyinstaller/archive/refs/heads/python-3.10.zip
           pyinstaller --onefile __main__.py
     
     # Condition to only run this whenever the runner os is Ubuntu
