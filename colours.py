@@ -18,6 +18,18 @@ def enterprompt():
     input(f"\n{bcolors.FAIL}(enter) to continue..{bcolors.ENDC}\n")
 
 
+def commitmsg():
+    com = subprocess.getoutput('git log -1 --pretty=%B')
+    spl = com.split("\n")
+    if len(spl) == 2 and spl[1] == "":
+        return spl[0]  # prevents redundant new line
+    else:
+        for text in spl:
+            if text == "":
+                spl.remove(text)
+        return "\n".join(spl)
+
+
 def greeting():
     print(f"""{bcolors.HEADER}
          .oooooo..o                    o8o  oooo   o8o              o8o                                  
@@ -37,7 +49,7 @@ def greeting():
     {bcolors.ENDC}
     {bcolors.OKBLUE}[ Directory: {bcolors.BOLD}"{os.getcwd()}" ]{bcolors.ENDC}
     {bcolors.OKGREEN}[ Branch: {bcolors.BOLD}"{subprocess.getoutput('git rev-parse --abbrev-ref HEAD')}" ]{bcolors.ENDC}
-    {bcolors.OKCYAN}[ Last Commit Message: "{subprocess.getoutput('git log -1 --pretty=%B')}" ]{bcolors.ENDC}
+    {bcolors.OKCYAN}[ Last Commit Message: "{commitmsg()}" ]{bcolors.ENDC}
     """)
 
 
