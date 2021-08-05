@@ -35,8 +35,9 @@ def greeting():
          888     d88' 888   888  888   888   888   888   888   888  d8(  888    888 . 888   888  888     
         o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b    
     {bcolors.ENDC}
-    {bcolors.OKBLUE}[ Directory: {os.getcwd()} ]{bcolors.ENDC}
-    {bcolors.OKGREEN}[ Branch: {subprocess.getoutput('git rev-parse --abbrev-ref HEAD')} ]{bcolors.ENDC}
+    {bcolors.OKBLUE}[ Directory: {bcolors.BOLD}"{os.getcwd()}" ]{bcolors.ENDC}
+    {bcolors.OKGREEN}[ Branch: {bcolors.BOLD}"{subprocess.getoutput('git rev-parse --abbrev-ref HEAD')}" ]{bcolors.ENDC}
+    {bcolors.OKCYAN}[ Last Commit Message: "{subprocess.getoutput('git log -1 --pretty=%B')}" ]{bcolors.ENDC}
     """)
 
 
