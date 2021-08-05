@@ -1,6 +1,5 @@
 import subprocess
-from __main__ import greeting
-from colours import bcolors, enterprompt
+from colours import bcolors, enterprompt, greeting
 import os
 
 

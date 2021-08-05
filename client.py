@@ -1,7 +1,6 @@
 import os
 import sys
-from colours import bcolors, enterprompt
-from __main__ import greeting
+from colours import bcolors, enterprompt, greeting
 import subprocess
 
 # importing the files
