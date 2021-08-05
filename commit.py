@@ -1,6 +1,9 @@
-from colours import bcolors, enterprompt, greeting
+from colours import bcolors, enterprompt, greeting, log_format
 import os
 import subprocess
+import logging
+
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def all_files():
@@ -60,8 +63,9 @@ def main():
                         comlist = comlist.split(" ")
                         cmd = f"git commit {' '.join(comlist)}"
                         print(f"""\n{subprocess.check_output(cmd).decode()}\n""")
-                    except:
+                    except subprocess.CalledProcessError as e:
                         print("[*] Invalid Filename, Please Try Again")
+                        logging.exception("[ Error While Committing: %s ]" % e)
                 enterprompt()
             case "2":
                 a = subprocess.check_output("git branch").decode().splitlines()
@@ -70,13 +74,14 @@ def main():
                     b.append(line.replace(" ", "").replace("*", ""))
                 print("Branches: \n")
                 for i in range(len(b)):
-                    print(f"{i+1}) {b[i]}")
+                    print(f"{i + 1}) {b[i]}")
                 bra = int(input("\n[+] Which Branch Would You Like To Checkout?: "))
                 cmd = "git checkout " + b[bra - 1]
                 try:
                     print(f"\n{subprocess.check_output(cmd).decode()}\n")
-                except:
+                except subprocess.CalledProcessError as e:
                     print(f"[*] Invalid Branch")
+                    logging.exception("[ Error While Checking Out Branch: %s ]" % e)
                 enterprompt()
             case "3":
                 choice2 = '1'
@@ -95,8 +100,9 @@ def main():
                             string = f'git stash save "{msg}"'
                             try:
                                 print(f"\n{subprocess.check_output(string).decode()}\n")
-                            except:
+                            except subprocess.CalledProcessError as e:
                                 print("[*] Invalid stash.")
+                                logging.exception("[ Error While Stashing: %s ]" % e)
                             enterprompt()
                         case "2":
                             print(f"\n{subprocess.check_output('git stash list').decode()}\n")
@@ -105,14 +111,15 @@ def main():
                             slist = subprocess.check_output('git stash list').decode().splitlines()
                             print("\nStashes: \n")
                             for i in range(len(slist)):
-                                print(f"{i+1}) {slist[i]}")
+                                print(f"{i + 1}) {slist[i]}")
                             cho = int(input("\n[+] Which Stash Would You Like To Apply?: "))
                             try:
                                 stash = slist[cho - 1].split(':')[0]
                                 string = f"git stash apply {stash}"
                                 print(f"\n{subprocess.check_output(string).decode()}\n")
-                            except:
+                            except subprocess.CalledProcessError as e:
                                 print("[*] No Such Stash")
+                                logging.exception("[ Error While Applying Stash: %s ]" % e)
                             enterprompt()
                         case "4":
                             slist = subprocess.check_output('git stash list').decode().splitlines()
@@ -124,8 +131,9 @@ def main():
                                 stash = slist[cho - 1].split(':')[0]
                                 string = f"git stash drop {stash}"
                                 print(f"\n{subprocess.check_output(string).decode()}\n")
-                            except:
+                            except subprocess.CalledProcessError as e:
                                 print("[*] No Such Stash")
+                                logging.exception("[ Error While Dropping Stash: %s ]" % e)
                             enterprompt()
             case "4":
                 all_files()
@@ -158,8 +166,6 @@ def main():
                     else:
                         cmd = "git add " + ' '.join(c)
                         print(f"\n{subprocess.check_output(cmd).decode()}\n")
-                except:
+                except subprocess.CalledProcessError as e:
                     print("[*] No Such File.")
-
-
-
+                    logging.exception("[ Error While Adding Files: %s ]" % e)

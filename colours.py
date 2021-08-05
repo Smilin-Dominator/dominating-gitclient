@@ -13,6 +13,7 @@ class bcolors:
 def enterprompt():
     input(f"\n{bcolors.FAIL}(enter) to continue..{bcolors.ENDC}\n")
 
+
 def greeting():
     print(f"""{bcolors.HEADER}
          .oooooo..o                    o8o  oooo   o8o              o8o                                  
@@ -30,3 +31,6 @@ def greeting():
          888     d88' 888   888  888   888   888   888   888   888  d8(  888    888 . 888   888  888     
         o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b    
     {bcolors.ENDC}""")
+
+
+log_format = '%(asctime)s (%(filename)s): %(message)s'

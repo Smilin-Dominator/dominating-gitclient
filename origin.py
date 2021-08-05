@@ -1,6 +1,10 @@
 import subprocess
 import os
-from colours import bcolors, enterprompt, greeting
+from colours import bcolors, enterprompt, greeting, log_format
+import logging
+
+
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main():
@@ -26,6 +30,7 @@ def main():
                     branch = a[4]
                     b = subprocess.getoutput(f'git push --set-upstream origin {branch}')
                     print(f'\n{b}\n')
+                    logging.info("Set Branch %s Upstream To Origin" % branch)
                 else:
                     print(f"\n{b}\n")
                 enterprompt()
@@ -38,4 +43,5 @@ def main():
             case "99":
                 break
             case _:
+                logging.warning("Invalid Choice %d" % choice)
                 pass

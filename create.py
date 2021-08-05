@@ -1,6 +1,10 @@
 import os
 import sys
 import subprocess
+import logging
+from colours import log_format
+
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main():
@@ -10,4 +14,5 @@ def main():
         sys.exit(0)
     else:
         print("[*] Initializing Repository")
+        logging.info("Initializing Git Repository In \"%s\"" % os.getcwd())
         subprocess.call("git init", shell=True)

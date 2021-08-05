@@ -1,13 +1,17 @@
+# standard libraries
 import os
 import sys
-from colours import bcolors, enterprompt, greeting
 import subprocess
+import logging
 
 # importing the files
+from colours import bcolors, enterprompt, greeting, log_format
 import origin
 import commit
 import branches
 import create
+
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main(path):
@@ -46,7 +50,8 @@ def main(path):
                 enterprompt()
             case "99":
                 os.system("cls")
+                logging.info("Exited Gracefully....\n\n")
                 sys.exit(0)
             case _:
+                logging.warning("Chose Invalid Option: %d" % choi)
                 pass
-

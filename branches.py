@@ -1,6 +1,9 @@
 import subprocess
-from colours import bcolors, enterprompt, greeting
+from colours import bcolors, enterprompt, greeting, log_format
 import os
+import logging
+
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def get_branches():
@@ -37,8 +40,9 @@ def main():
                 try:
                     cmd = "git checkout " + b[bra - 1]
                     print(f"\n{subprocess.check_output(cmd).decode()}\n")
-                except subprocess.CalledProcessError:
+                except IndexError as e:
                     print("[*] No Such Branch Exists In This Universe...")
+                    logging.exception("[ Error While Checking Out Branch: %s ]" % e)
                 enterprompt()
             case "3":
                 b = get_branches()
@@ -52,8 +56,15 @@ def main():
                         print(f"\n{subprocess.call(cmd_m, shell=True)}\n")
                     except KeyboardInterrupt:
                         print("\n[*] Aborted.. ")
-                    except subprocess.CalledProcessError or IndexError as e:
+                    except subprocess.CalledProcessError as e:
                         print("\n[*] Command Failed, Try Again..")
+                        logging.exception("[ Error while Merging Branch: %s ]" % e)
+                    except IndexError as e:
+                        print("\n[!] Enter A Number Included In The List!")
+                        logging.exception("[ Error while Merging Branch: %s ]" % e)
+                    except ValueError as e:
+                        print("\n[!] Not An Integer!")
+                        logging.exception("[ Error while Merging Branch: %s ]" % e)
                 else:
                     print("[*] Not Enough Branches To Perform A Merge")
                 enterprompt()
@@ -64,10 +75,17 @@ def main():
                         bra = int(input("[*] Which Branch Would You Like To Delete? (Ctrl+C to Cancel): "))
                         cmd = f"git branch -d {b[bra - 1]}"
                         print(f"\n{subprocess.call(cmd, shell=True)}\n")
-                    except subprocess.CalledProcessError or IndexError as e:
-                        print(f"\n[*] Invalid Branch")
                     except KeyboardInterrupt:
                         print("\n[*] Aborted..")
+                    except subprocess.CalledProcessError as e:
+                        print(f"\n[*] Branch Wasn't Deleted")
+                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
+                    except ValueError as e:
+                        print(f"\n[*] Not An Integer!")
+                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
+                    except IndexError as e:
+                        print(f"\n[*] Enter A Number Included In The List!")
+                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
                 else:
                     print("[*] Only One Branch Remains, And You Can't Delete That.")
                 enterprompt()
