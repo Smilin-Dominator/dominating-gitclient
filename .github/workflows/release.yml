@@ -1,0 +1,56 @@
+name: Publish
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  building:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    # Runs when the commit message contains "[Release]" Otherwise it doesn't run
+    if: "contains(github.event.head_commit.message, '[Release]')"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.0b2
+      - name: Preparation
+        run: |
+          pip3 install -r requirements.txt
+          pyinstaller --onefile __main__.py
+    
+    # Condition to only run this whenever the runner os is Ubuntu
+      - name: Building Release For Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd ./dist
+          tar -cf main-linux-x86_64.zip '__main__'
+          cd .. 
+          
+      # Condition to only run this whenever the runner os is Windows
+      - name: Building Release For Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd ./dist
+          tar -cf main-windows-x86_64.zip '__main__.exe'
+          cd ..
+       
+      # This will draft a new release & will attach the binaries produced by the above outputs.
+      # You still need to publish this release though after job ends.
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: vX.X.X
+          name: GitClient
+          draft: true
+          files: |
+            ./dist/main-linux-x86_64.zip
+            ./dist/main-windows-x86_64.zip
+            ./README.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # You don't need to add this in secrets it's by default.
+
