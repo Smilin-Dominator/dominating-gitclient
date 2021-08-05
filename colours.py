@@ -1,3 +1,7 @@
+import os
+import subprocess
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -30,7 +34,10 @@ def greeting():
          888      888 888   888  888   888   888   888   888   888   .oP"888    888   888   888  888     
          888     d88' 888   888  888   888   888   888   888   888  d8(  888    888 . 888   888  888     
         o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b    
-    {bcolors.ENDC}""")
+    {bcolors.ENDC}
+    {bcolors.OKBLUE}[ Directory: {os.getcwd()} ]{bcolors.ENDC}
+    {bcolors.OKGREEN}[ Branch: {subprocess.getoutput('git rev-parse --abbrev-ref HEAD')} ]{bcolors.ENDC}
+    """)
 
 
 log_format = '%(asctime)s (%(filename)s): %(message)s'
