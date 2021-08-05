@@ -1,20 +1,35 @@
 import os
 import sys
 import client
+import yaml
 
 
 def syner(er):
     return f"[*] Invalid Syntax: {er}"
 
 
+def read_codenames():
+    try:
+        with open("codenames.txt", "r") as codefile:
+            ya = yaml.load(codefile, Loader=yaml.FullLoader)
+            return ya
+    except FileNotFoundError:
+        print("[*] No Codename File Found..Creating...")
+        print("[!] Type \'done\' when it asks for code, to finish!")
+        dictionary = {}
+        while True:
+            code = input("Code: ")
+            if code == "done":
+                break
+            else:
+                path = input("Path: ")
+                dictionary[code] = dictionary[path]
+        yaml.dump(dictionary, open("codenames.txt", 'w'))
+        print("Success!")
+
+
 def interface():
-    codenames = {
-        "mysql": r"C:\Users\Devisha\Documents\GitHub\mysql-and-python-billing",
-        "devios": r"C:\Users\Devisha\Documents\GitHub\DeviOS",
-        "coding_projects": r"C:\Users\Devisha\Documents\GitHub\coding-projects",
-        "devicoin": r"C:\Users\Devisha\Documents\GitHub\flask_project",
-        "here": r"C:\Users\Devisha\Documents\GitHub\GitClient"
-    }
+    codenames = read_codenames()
     if len(sys.argv) < 2:
         print(syner("Not Enough Arguments."))
         return False
