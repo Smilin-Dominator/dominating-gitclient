@@ -19,10 +19,18 @@ def interface():
         print(syner("Not Enough Arguments."))
         return False
     else:
-        if sys.argv[1] == "-h":
+        exe = 0
+        for file in os.listdir('.'):
+            if file.endswith(".exe"):
+                exe = 1
+                break
+        if sys.argv[1] == "-h" and exe == 0:
             print(f"Syntax: 'python3 gitclient <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
                   f" you may enter the absolute path of the directory.")
             sys.exit(1)
+        elif sys.argv[1] == "-h" and exe == 1:
+            print(f"Syntax: './__main__.exe <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
+                  f" you may enter the absolute path of the directory.")
         else:
             choice = sys.argv[1]
             try:
