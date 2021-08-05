@@ -14,18 +14,20 @@ def read_codenames():
             ya = yaml.load(codefile, Loader=yaml.FullLoader)
             return ya
     except FileNotFoundError:
-        print("[*] No Codename File Found..Creating...")
-        print("[!] Type \'done\' when it asks for code, to finish!")
-        dictionary = {}
-        while True:
-            code = input("Code: ")
-            if code == "done":
-                break
-            else:
-                path = input("Path: ")
-                dictionary[code] = dictionary[path]
-        yaml.dump(dictionary, open("codenames.txt", 'w'))
-        print("Success!")
+        with open("codenames.txt", 'w+') as stream:
+            print("[*] No Codename File Found..Creating...")
+            print("[!] Press \'Ctrl+C\' when done!")
+            dictionary = {"here": os.getcwd()}
+            while True:
+                try:
+                    code = input("Code: ")
+                    path = input("Path: ")
+                    dictionary[code] = path
+                except KeyboardInterrupt:
+                    break
+            yaml.dump(dictionary, stream)
+            print("[$] Success!")
+        return dictionary
 
 
 def interface():
@@ -55,7 +57,7 @@ def interface():
                 else:
                     print(syner("Wrong Path"))
                     return False
-            except os.error:
+            except KeyError:
                 if os.path.exists(choice):
                     return os.path.join(choice)
                 else:
