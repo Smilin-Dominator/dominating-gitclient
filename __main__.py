@@ -32,7 +32,7 @@ def interface():
                 else:
                     print(syner("Wrong Path"))
                     return False
-            except:
+            except os.error:
                 if os.path.exists(choice):
                     return os.path.join(choice)
                 else:
