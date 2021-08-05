@@ -79,13 +79,22 @@ def main():
                         print("\n[*] Aborted..")
                     except subprocess.CalledProcessError as e:
                         print(f"\n[*] Branch Wasn't Deleted")
-                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
+                        logging.exception("[ Error While Deleting A Branch: %s ]" % e)
                     except ValueError as e:
                         print(f"\n[*] Not An Integer!")
-                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
+                        logging.exception("[ Error While Deleting A Branch: %s ]" % e)
                     except IndexError as e:
                         print(f"\n[*] Enter A Number Included In The List!")
-                        logging.exception("[ Error While Deleting Branch: %s ]" % e)
+                        logging.exception("[ Error While Deleting A Branch: %s ]" % e)
                 else:
                     print("[*] Only One Branch Remains, And You Can't Delete That.")
                 enterprompt()
+            case "5":
+                bra = input("[*] New Branch: ")
+                try:
+                    subprocess.call(f"git branch {bra}", shell=True)
+                    print("[*] Successfully Created Branch '%s'!" % bra)
+                except subprocess.CalledProcessError as e:
+                    print("[*] Error Occured")
+                    logging.exception("[ Error While Creating A Branch: %s ]" % e)
+
