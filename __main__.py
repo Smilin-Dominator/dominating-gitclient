@@ -1,7 +1,7 @@
 import os
 import sys
 import client
-from codename_config import read_codenames
+from codename_config import read_codenames, write_codenames
 
 
 def syntax_error(er):
@@ -9,7 +9,10 @@ def syntax_error(er):
 
 
 def interface():
-    codenames = read_codenames()
+    if os.path.exists("codenames.yml"):
+        codenames = read_codenames()
+    else:
+        codenames = write_codenames()
     if len(sys.argv) < 2:
         print(syntax_error("Not Enough Arguments."))
         return False

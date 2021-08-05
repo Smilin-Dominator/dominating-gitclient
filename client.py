@@ -10,6 +10,7 @@ import origin
 import commit
 import branches
 import create
+from codename_config import append_codenames
 
 logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
@@ -50,7 +51,8 @@ def main(path):
                 print(a)
                 enterprompt()
             case "6":
-                
+                append_codenames()
+                enterprompt()
             case "99":
                 os.system("cls")
                 logging.info("Exited Gracefully....\n\n")
