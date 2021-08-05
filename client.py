@@ -1,8 +1,14 @@
 import os
-from sys import stderr
+import sys
 from colours import bcolors, enterprompt
 from __main__ import greeting
 import subprocess
+
+# importing the files
+import origin
+import commit
+import branches
+import create
 
 
 def main(path):
@@ -10,7 +16,6 @@ def main(path):
     try:
         subprocess.check_output("git status", shell=True)
     except subprocess.CalledProcessError:
-        import create
         create.main()
     choi = "1"
     while choi != "99":
@@ -25,18 +30,16 @@ def main(path):
         choi = input(": ")
         match choi:
             case "1":
-                import origin
                 origin.main()
             case "2":
-                import commit
                 commit.main()
             case "3":
-                print(f"\n\n{bcolors.UNDERLINE}{bcolors.OKGREEN}Red = Removed\nGreen = Added\nUse The Up And Down Arrow To Go Up And Down\nType 'q' To Leave!{bcolors.ENDC}\n\n")
+                print(f"\n\n{bcolors.UNDERLINE}{bcolors.OKGREEN}Red = Removed\nGreen = Added\n"
+                      f"Use The Up And Down Arrow To Go Up And Down\nType 'q' To Leave!{bcolors.ENDC}\n\n")
                 enterprompt()
                 a = subprocess.call("git diff", shell=True)
                 print(a)
             case "4":
-                import branches
                 branches.main()
             case "5":
                 a = subprocess.call("git log --graph", shell=True)

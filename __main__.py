@@ -1,6 +1,7 @@
 import os
 import sys
 from colours import bcolors
+import client
 
 
 def syner(er):
@@ -62,9 +63,6 @@ def interface():
 if __name__ == '__main__':
     proceed = interface()
     if proceed:
-        import client
-        greeting()
-        print("[*] Successful!")
         client.main(proceed)
     else:
         sys.exit(2)
