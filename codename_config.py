@@ -6,6 +6,8 @@ from colours import bcolors
 def append_codenames():
     with open("codenames.yml", "r") as stream:
         dictionary = yaml.load(stream, Loader=yaml.FullLoader)
+        print(f"{bcolors.OKGREEN}[*] Current Codes:{bcolors.ENDC}")
+        print(dictionary)
         print(f"{bcolors.OKBLUE}[!] Press \'Ctrl+C\' when done!{bcolors.ENDC}")
         while True:
             try:
