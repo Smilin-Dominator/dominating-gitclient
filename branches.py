@@ -10,9 +10,10 @@ def get_branches():
         b.append(line.replace(" ", "").replace("*", ""))
     print("\nBranches: \n")
     for i in range(len(b)):
-        print(f"{i+1}) {b[i]}")
+        print(f"{i + 1}) {b[i]}")
     print("\n")
     return b
+
 
 def main():
     choice = "1"
@@ -23,6 +24,7 @@ def main():
               f"2) {bcolors.OKGREEN}Checkout A Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKCYAN}Merge Branches{bcolors.ENDC}\n"
               f"4) {bcolors.FAIL}Delete A Branch{bcolors.ENDC}\n"
+              f"5) {bcolors.HEADER}Create A Branch{bcolors.ENDC}\n"
               f"99) {bcolors.WARNING}Main Menu{bcolors.ENDC}")
         choice = input(": ")
         match choice:
@@ -35,27 +37,37 @@ def main():
                 try:
                     cmd = "git checkout " + b[bra - 1]
                     print(f"\n{subprocess.check_output(cmd).decode()}\n")
-                except:
-                    print("[*] No Such Branch")
+                except subprocess.CalledProcessError:
+                    print("[*] No Such Branch Exists In This Universe...")
                 enterprompt()
             case "3":
                 b = get_branches()
-                branch = int(input("[*] Which Branch Do You Want To Checkout?: "))
-                branchtm = int(input(f"[*] Which Branch Do You Want To Merge Into?: "))
-                cmd_c = f"git checkout {b[branch - 1]}"
-                cmd_m = f"git merge {b[branchtm - 1]}"
-                try:
-                    print(f"\n{subprocess.call(cmd_c, shell=True)}\n")
-                    print(f"\n{subprocess.call(cmd_m, shell=True)}\n")
-                except:
-                    print("[*] Invalid Command, Try Again..")
+                if len(b) > 1:
+                    try:
+                        branch = int(input("[*] Which Branch Do You Want To Checkout? (Ctrl+C to Abort): "))
+                        branchtm = int(input(f"[*] Which Branch Do You Want To Merge Into? (Ctrl+C to Abort): "))
+                        cmd_c = f"git checkout {b[branch - 1]}"
+                        cmd_m = f"git merge {b[branchtm - 1]}"
+                        print(f"\n{subprocess.call(cmd_c, shell=True)}\n")
+                        print(f"\n{subprocess.call(cmd_m, shell=True)}\n")
+                    except KeyboardInterrupt:
+                        print("\n[*] Aborted.. ")
+                    except subprocess.CalledProcessError or IndexError as e:
+                        print("\n[*] Command Failed, Try Again..")
+                else:
+                    print("[*] Not Enough Branches To Perform A Merge")
                 enterprompt()
             case "4":
                 b = get_branches()
-                bra = int(input("[*] Which Branch Would You Like To Delete?: "))
-                cmd = f"git branch -d {b[bra - 1]}"
-                try:
-                    print(f"\n{subprocess.call(cmd, shell=True)}\n")
-                except:
-                    print(f"[*] Invalid Branch")
+                if len(b) > 1:
+                    try:
+                        bra = int(input("[*] Which Branch Would You Like To Delete? (Ctrl+C to Cancel): "))
+                        cmd = f"git branch -d {b[bra - 1]}"
+                        print(f"\n{subprocess.call(cmd, shell=True)}\n")
+                    except subprocess.CalledProcessError or IndexError as e:
+                        print(f"\n[*] Invalid Branch")
+                    except KeyboardInterrupt:
+                        print("\n[*] Aborted..")
+                else:
+                    print("[*] Only One Branch Remains, And You Can't Delete That.")
                 enterprompt()
