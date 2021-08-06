@@ -21,27 +21,33 @@ def main():
         match choice:
             case "1":
                 while True:
-                    name = input("[*] Name: ")
-                    email = input("[*] Email: ")
-                    conf = input("[*] You Have Entered '%s' As Your Name And '%s' As Your Email\n"
-                                 "Is This Alright? (y/n): " % (name, email))
-                    if conf == "y":
-                        try:
-                            subprocess.call("git config --global user.name '%s'" % name)
-                            subprocess.call("git config --global user.email  '%s'" % email)
-                            print("[*] Success!")
-                            break
-                        except subprocess.CalledProcessError as e:
-                            print("[*] Error!")
-                            logging.exception("[ Error While Setting Userames: %s ]" % e)
+                    try:
+                        name = input("[*] Name: ")
+                        email = input("[*] Email: ")
+                        conf = input("[*] You Have Entered '%s' As Your Name And '%s' As Your Email\n"
+                                     "Is This Alright? (y/n): " % (name, email))
+                        if conf == "y":
+                            try:
+                                subprocess.call("git config --global user.name '%s'" % name)
+                                subprocess.call("git config --global user.email  '%s'" % email)
+                                print("[*] Success!")
+                                break
+                            except subprocess.CalledProcessError as e:
+                                print("[*] Error!")
+                                logging.exception("[ Error While Setting Userames: %s ]" % e)
+                    except KeyboardInterrupt:
+                        print("[!] Aborted...")
             case "2":
-                texteditor = input("[*] Text Editor: ")
                 try:
-                    subprocess.call('git config --global core.editor "%s --wait"' % texteditor)
-                    print("[*] Success!")
-                except subprocess.CalledProcessError as e:
-                    print("[*] Error!")
-                    logging.exception("[ Error While Setting Userames: %s ]" % e)
+                    texteditor = input("[*] Text Editor: ")
+                    try:
+                        subprocess.call('git config --global core.editor "%s --wait"' % texteditor)
+                        print("[*] Success!")
+                    except subprocess.CalledProcessError as e:
+                        print("[*] Error!")
+                        logging.exception("[ Error While Setting Userames: %s ]" % e)
+                except KeyboardInterrupt:
+                    print("[!] Aborted...")
             case "3":
                 try:
                     subprocess.call('git config --global credential.helper store')

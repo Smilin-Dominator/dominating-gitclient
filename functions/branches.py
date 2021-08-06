@@ -94,14 +94,16 @@ def main():
                     print("[*] Only One Branch Remains, And You Can't Delete That.")
                 enterprompt()
             case "5":
-                bra = input("[*] New Branch: ")
                 try:
-                    subprocess.call(f"git branch {bra}", shell=True)
-                    print("[*] Successfully Created Branch '%s'!" % bra)
-                    check = input("[!] Would You Like To Checkout The Branch? (y/n): ")
-                    if check == "y":
-                        subprocess.call(f"git checkout {bra}", shell=True)
-                except subprocess.CalledProcessError as e:
-                    print("[*] Error Occured")
-                    logging.exception("[ Error While Creating A Branch: %s ]" % e)
-
+                    bra = input("[*] New Branch (Ctrl+C To Abort): ")
+                    try:
+                        subprocess.call(f"git branch {bra}", shell=True)
+                        print("[*] Successfully Created Branch '%s'!" % bra)
+                        check = input("[!] Would You Like To Checkout The Branch? (y/n): ")
+                        if check == "y":
+                            subprocess.call(f"git checkout {bra}", shell=True)
+                    except subprocess.CalledProcessError as e:
+                        print("[*] Error Occured")
+                        logging.exception("[ Error While Creating A Branch: %s ]" % e)
+                except KeyboardInterrupt:
+                    print("[!] Aborted...")

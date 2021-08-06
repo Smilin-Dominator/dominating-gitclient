@@ -59,5 +59,4 @@ def main(path):
                 logging.info("Exited Gracefully....\n\n")
                 sys.exit(0)
             case _:
-                logging.warning("Chose Invalid Option: %d" % choi)
-                pass
+                logging.warning("Chose Invalid Option: %s" % choi)
