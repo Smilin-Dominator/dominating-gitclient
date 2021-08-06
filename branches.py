@@ -75,6 +75,10 @@ def main():
                         bra = int(input("[*] Which Branch Would You Like To Delete? (Ctrl+C to Cancel): "))
                         cmd = f"git branch -d {b[bra - 1]}"
                         print(f"\n{subprocess.call(cmd, shell=True)}\n")
+                        up = input("[*] Success! Would You Like To Delete The Upstream Branch As Well? (y/n): ")
+                        if up == "y":
+                            cmd = f"git push origin --delete {b[bra - 1]}"
+                            print(f"\n{subprocess.call(cmd, shell=True)}\n")
                     except KeyboardInterrupt:
                         print("\n[*] Aborted..")
                     except subprocess.CalledProcessError as e:
