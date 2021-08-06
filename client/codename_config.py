@@ -1,10 +1,10 @@
 import yaml
 import os
-from colours import bcolors
+from configuration.colours import bcolors
 
 
 def append_codenames():
-    with open("codenames.yml", "r") as stream:
+    with open("../codenames.yml", "r") as stream:
         dictionary = yaml.load(stream, Loader=yaml.FullLoader)
         print(f"{bcolors.OKGREEN}[*] Current Codes:{bcolors.ENDC}")
         print(dictionary)
@@ -22,13 +22,13 @@ def append_codenames():
                     dictionary[code] = path
             except KeyboardInterrupt:
                 break
-    with open("codenames.yml", "w") as stream:
+    with open("../codenames.yml", "w") as stream:
         yaml.dump(dictionary, stream)
         print(f"\n{bcolors.OKGREEN}[$] Success!{bcolors.ENDC}")
 
 
 def write_codenames():
-    with open("codenames.yml", 'w+') as stream:
+    with open("../codenames.yml", 'w+') as stream:
         print("[*] No Codename File Found..Creating...")
         print("[!] Press \'Ctrl+C\' when done!")
         dictionary = {"here": os.getcwd()}
@@ -46,7 +46,7 @@ def write_codenames():
 
 def read_codenames():
     try:
-        with open("codenames.yml", "r") as codefile:
+        with open("../codenames.yml", "r") as codefile:
             ya = yaml.load(codefile, Loader=yaml.FullLoader)
             return ya
     except FileNotFoundError:

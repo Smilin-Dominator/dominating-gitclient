@@ -1,7 +1,7 @@
 import os
 import sys
-import client
-from codename_config import read_codenames, write_codenames
+from client import client
+from client.codename_config import read_codenames, write_codenames
 
 
 def syntax_error(er):

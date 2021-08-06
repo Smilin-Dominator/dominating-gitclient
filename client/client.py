@@ -5,15 +5,12 @@ import subprocess
 import logging
 
 # importing the files
-from colours import bcolors, enterprompt, greeting, log_format
-import origin
-import commit
-import branches
-import create
-import git_config
-from codename_config import append_codenames
+from configuration.colours import bcolors, enterprompt, greeting, log_format
+from functions import create, branches, origin, commit
+from configuration import git_config
+from client.codename_config import append_codenames
 
-logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
+logging.basicConfig(filename="../log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main(path):

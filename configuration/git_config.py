@@ -1,10 +1,10 @@
 import logging
 import subprocess
 
-from colours import bcolors, greeting, log_format
+from configuration.colours import bcolors, greeting, log_format
 import os
 
-logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
+logging.basicConfig(filename="../log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main():
