@@ -54,19 +54,23 @@ def main():
         match choice:
             case "1":
                 all_files()
-                print("\n\n[*] Which Files Would You Like To Commit? (all / [enter the files sep. by spaces]")
-                comlist = input("[*] ")
-                if comlist == "all":
-                    print(f"\n{subprocess.check_output('git commit *').decode()}\n")
-                else:
-                    try:
-                        comlist = comlist.split(" ")
-                        cmd = f"git commit {' '.join(comlist)}"
-                        print(f"""\n{subprocess.check_output(cmd).decode()}\n""")
-                    except subprocess.CalledProcessError as e:
-                        print("[*] Invalid Filename, Please Try Again")
-                        logging.exception("[ Error While Committing: %s ]" % e)
-                enterprompt()
+                try:
+                    print("\n\n[*] Which Files Would You Like To Commit? [Ctrl+C To Abort]\n"
+                          "(all / [enter the files sep. by spaces]): ")
+                    comlist = input("[*] ")
+                    if comlist == "all":
+                        print(f"\n{subprocess.check_output('git commit *').decode()}\n")
+                    else:
+                        try:
+                            comlist = comlist.split(" ")
+                            cmd = f"git commit {' '.join(comlist)}"
+                            print(f"""\n{subprocess.check_output(cmd).decode()}\n""")
+                        except subprocess.CalledProcessError as e:
+                            print("[*] Invalid Filename, Please Try Again")
+                            logging.exception("[ Error While Committing: %s ]" % e)
+                    enterprompt()
+                except KeyboardInterrupt:
+                    print("[!] Aborted...")
             case "2":
                 a = subprocess.check_output("git branch").decode().splitlines()
                 b = []
@@ -75,13 +79,19 @@ def main():
                 print("Branches: \n")
                 for i in range(len(b)):
                     print(f"{i + 1}) {b[i]}")
-                bra = int(input("\n[+] Which Branch Would You Like To Checkout?: "))
-                cmd = "git checkout " + b[bra - 1]
                 try:
+                    bra = int(input("\n[+] Which Branch Would You Like To Checkout?: "))
+                    cmd = "git checkout " + b[bra - 1]
                     print(f"\n{subprocess.check_output(cmd).decode()}\n")
                 except subprocess.CalledProcessError as e:
                     print(f"[*] Invalid Branch")
                     logging.exception("[ Error While Checking Out Branch: %s ]" % e)
+                except IndexError as e:
+                    print("[*] Invalid Position Specified")
+                    logging.exception("[*] Invalid Position Specified: %s" % e)
+                except ValueError as e:
+                    print("[*] Not An Integer!")
+                    logging.exception("[*] Not An Integer!: %s" % e)
                 enterprompt()
             case "3":
                 choice2 = '1'
@@ -115,8 +125,10 @@ def main():
                             cho = int(input("\n[+] Which Stash Would You Like To Apply?: "))
                             try:
                                 stash = slist[cho - 1].split(':')[0]
+                                stash = stash.replace("stash@", "").replace("{", "").replace("}", "")
                                 string = f"git stash apply {stash}"
-                                print(f"\n{subprocess.check_output(string).decode()}\n")
+                                print(string)
+                                # print(f"\n{subprocess.check_output(string).decode()}\n")
                             except subprocess.CalledProcessError as e:
                                 print("[*] No Such Stash")
                                 logging.exception("[ Error While Applying Stash: %s ]" % e)
