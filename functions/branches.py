@@ -3,7 +3,7 @@ from configuration.colours import bcolors, enterprompt, greeting, log_format
 import os
 import logging
 
-logging.basicConfig(filename="../log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def get_branches():

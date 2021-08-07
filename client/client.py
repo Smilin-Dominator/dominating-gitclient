@@ -10,7 +10,7 @@ from functions import create, branches, origin, commit
 from configuration import git_config
 from client.codename_config import append_codenames
 
-logging.basicConfig(filename="../log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def main(path):

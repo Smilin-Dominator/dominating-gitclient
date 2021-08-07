@@ -3,7 +3,7 @@ import os
 import subprocess
 import logging
 
-logging.basicConfig(filename="../log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
+logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [%H:%M:%S]', level=logging.DEBUG)
 
 
 def all_files():

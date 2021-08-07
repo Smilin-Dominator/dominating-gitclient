@@ -23,12 +23,35 @@ def interface():
                 exe = 1
                 break
         if sys.argv[1] == "-h" and exe == 0:
-            print(f"Syntax: 'python3 gitclient <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
-                  f" you may enter the absolute path of the directory.")
+            print(f"""
+                    Syntax: python3 GitClient/ <dir_or_codename>
+
+                    Dir:
+                        - Any Directory You Want
+                        - You may provide the relative path from the object ("../folder") or 
+                          the absolute path ("C:\\Users\\xxx")
+
+                    Codenames:
+                        - When you first run the file, it'll ask you to create codenames.
+                        - How they work is, you enter a code, and a path
+                        - Instead of putting "python3 GitClient/ C:\\Users\\xxx" you can 
+                          do "python3 GitClient/ <code>"
+                    """)
             sys.exit(1)
         elif sys.argv[1] == "-h" and exe == 1:
-            print(f"Syntax: './__main__.exe <dir>'\n\nCode Names: {codenames}\n\nIf you do not want to use codenames"
-                  f" you may enter the absolute path of the directory.")
+            print(f"""
+                Syntax: ./__main__.exe <dir_or_codename>
+                
+                Dir:
+                    - Any Directory You Want
+                    - You may provide the relative path from the object ("../folder") or 
+                      the absolute path ("C:\\Users\\xxx")
+                      
+                Codenames:
+                    - When you first run the file, it'll ask you to create codenames.
+                    - How they work is, you enter a code, and a path
+                    - Instead of putting "./__main__.exe C:\\Users\\xxx" you can do "./__main__.exe <code>"
+            """)
         else:
             choice = sys.argv[1]
             try:
