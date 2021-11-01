@@ -65,7 +65,7 @@ def header(*modules: str):
     for i in range(modules.count("")):
         modules.remove("")
     modules = "\n    ".join(modules)
-    print(f"""
+    print(f"""[pale_turquoise1]
              .oooooo..o                    o8o  oooo   o8o              o8o                                  
             d8P'    `Y8                    `"'  `888   `"'              `YP                                  
             Y88bo.      ooo. .oo.  .oo.   oooo   888  oooo  ooo. .oo.    '                                   
@@ -79,10 +79,10 @@ def header(*modules: str):
              888      888 d88' `88b `888P"Y88bP"Y88b  `888  `888P"Y88b  `P  )88b    888   d88' `88b `888""8P 
              888      888 888   888  888   888   888   888   888   888   .oP"888    888   888   888  888     
              888     d88' 888   888  888   888   888   888   888   888  d8(  888    888 . 888   888  888     
-            o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b    
+            o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b [/pale_turquoise1]
         
-        [ Directory: "{getcwd()}" ]
-        [ Branch: "{getoutput('git rev-parse --abbrev-ref HEAD')}" ]
-        [ Last Commit Message: "{last_commit()}" ]
+        [hot_pink2][ Directory: [bold]"{getcwd()}"[/bold] ][/hot_pink2]
+        [khaki3][ Branch: [bold]"{getoutput('git rev-parse --abbrev-ref HEAD')}"[/bold] ][/khaki3]
+        [medium_purple1][ Last Commit: [bold]"{last_commit()}"[/bold] ][/medium_purple1]
         {modules}
         """)
