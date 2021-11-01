@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
 from subprocess import getoutput
-from os import getcwd
+from os import getcwd, system
 import logging
 
 log_format = '%(asctime)s (%(filename)s): %(message)s'
@@ -72,6 +72,7 @@ def header(*modules: str):
     for i in range(modules.count("")):
         modules.remove("")
     modules = "\n    ".join(modules)
+    system("cls")
     print(f"""[pale_turquoise1]
              .oooooo..o                    o8o  oooo   o8o              o8o                                  
             d8P'    `Y8                    `"'  `888   `"'              `YP                                  
