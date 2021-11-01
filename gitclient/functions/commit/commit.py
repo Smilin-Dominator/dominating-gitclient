@@ -1,5 +1,6 @@
-from subprocess import call, CalledProcessError
-from ..design.rich import error
+from subprocess import call
+
+from gitclient.design.rich import error
 
 
 def commit(files: list, message: str):
