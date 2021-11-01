@@ -41,23 +41,30 @@ def info(msg: str, override: str = None) -> None:
         print(f"[?] {msg}")
 
 
-def input(prompt: str, override: str = None, default=None, password=False) -> str:
-    if default is None:
-        if override is not None:
-            return Prompt.ask(f"[{override}]{prompt}[/{override}]", password=password)
-        else:
-            return Prompt.ask(f"{prompt}", password=password)
+def input(prompt: str, override: str = None, default=None, password=False, choices=None) -> str:
+    if override is not None:
+        return Prompt.ask(f"[{override}]{prompt}[/{override}]", default=default, password=password, choices=choices)
     else:
-        if override is not None:
-            return Prompt.ask(f"[{override}]{prompt}[/{override}]", default=default, password=password)
-        else:
-            return Prompt.ask(f"{prompt}", default=default, password=password)
+        return Prompt.ask(f"{prompt}", default=default, password=password, choices=choices)
 
 
 # ---------------------- Other Functions ---------------------------------------
 def last_commit() -> str:
     raw = getoutput('git log -1 --pretty=%B')
-    return raw.strip("\n")
+    new = raw.strip("\n")
+    if raw.startswith("fatal"):
+        return "None"
+    else:
+        return new
+
+
+def get_branch() -> str:
+    raw = getoutput('git rev-parse --abbrev-ref HEAD')
+    if raw.startswith("fatal"):
+        return "None"
+    else:
+        return raw
+
 
 
 def header(*modules: str):
@@ -82,7 +89,7 @@ def header(*modules: str):
             o888bood8P'   `Y8bod8P' o888o o888o o888o o888o o888o o888o `Y888""8o   "888" `Y8bod8P' d888b [/pale_turquoise1]
         
         [hot_pink2][ Directory: [bold]"{getcwd()}"[/bold] ][/hot_pink2]
-        [khaki3][ Branch: [bold]"{getoutput('git rev-parse --abbrev-ref HEAD')}"[/bold] ][/khaki3]
+        [khaki3][ Branch: [bold]"{get_branch()}"[/bold] ][/khaki3]
         [medium_purple1][ Last Commit: [bold]"{last_commit()}"[/bold] ][/medium_purple1]
         {modules}
         """)
