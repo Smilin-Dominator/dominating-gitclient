@@ -30,7 +30,8 @@ def commitmsg():
         return "\n".join(spl)
 
 
-def greeting():
+def greeting(*modules: str):
+    modules = "\n    ".join(modules)
     print(f"""{bcolors.HEADER}
          .oooooo..o                    o8o  oooo   o8o              o8o                                  
         d8P'    `Y8                    `"'  `888   `"'              `YP                                  
@@ -50,6 +51,7 @@ def greeting():
     {bcolors.OKBLUE}[ Directory: {bcolors.BOLD}"{os.getcwd()}" ]{bcolors.ENDC}
     {bcolors.OKGREEN}[ Branch: {bcolors.BOLD}"{subprocess.getoutput('git rev-parse --abbrev-ref HEAD')}" ]{bcolors.ENDC}
     {bcolors.OKCYAN}[ Last Commit Message: "{commitmsg()}" ]{bcolors.ENDC}
+    {modules}
     """)
 
 
