@@ -1,4 +1,4 @@
-from rich import Console
+from rich.console import Console
 from rich.prompt import Prompt
 
 console = Console(color_system="256")
