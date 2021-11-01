@@ -1,7 +1,7 @@
 from subprocess import getoutput
 from client.first_time import main as setup
 from client.main import main as cl
-from config import warning
+from config import warning, error
 from sys import argv, exit
 from os import chdir
 
@@ -16,7 +16,11 @@ if __name__ == "__main__":
     if len(argv) < 2:
         warning("Not Enough Arguments")
         exit(1)
-    chdir(argv[1])
+    try:
+        chdir(argv[1])
+    except FileNotFoundError:
+        error("Specified Directory Not Found!")
+        exit(2)
     first_time_check()
     cl()
 
