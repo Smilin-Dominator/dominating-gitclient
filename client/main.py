@@ -1,11 +1,13 @@
 from sys import exit
 from config import header, print, input, error, warning
 from .commit import main as com
+from .git_log import main as lg
 
 
 def main():
-    header()
-    print("""
+    while True:
+        header()
+        print("""
         1) Commit Functions
         2) Branch Functions
         3) Remote Management
@@ -13,9 +15,8 @@ def main():
         5) Commit Log
         ..
         99) Quit
-    """)
-    try:
-        choice = int(input("\td"))
+        """)
+        choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
         match choice:
             case 1:
                 com()
@@ -26,10 +27,8 @@ def main():
             case 4:
                 pass
             case 5:
-                pass
+                lg()
             case 99:
                 exit(0)
             case _:
                 warning("Number doesn't match")
-    except ValueError:
-        error("Didn't enter an integer during the main selection")
