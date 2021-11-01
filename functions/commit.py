@@ -7,42 +7,24 @@ logging.basicConfig(filename="log.txt", format=log_format, datefmt='[%Y-%m-%d] [
 
 
 def all_files():
-    mfilelist = []
-    nfilelist = []
-    dfilelist = []
-    a = subprocess.check_output("git status").decode().splitlines()
-    for supposed_file in a:
-        if supposed_file.startswith("\tnew file:"):
-            name = supposed_file.replace(" ", "").replace("newfile:", '')
-            string = "\tNew File: " + name
-            nfilelist.append(string)
-        elif supposed_file.startswith("\tmodified: "):
-            name = supposed_file.replace(" ", "").replace("modified:", '')
-            string = "\tModified File: " + name
-            mfilelist.append(string)
-        elif supposed_file.startswith("\tdeleted: "):
-            name = supposed_file.replace(" ", "").replace("deleted:", '')
-            string = "\tDeleted File: " + name
-            dfilelist.append(string)
-    if len(nfilelist) > 0:
-        print("\nNew Files: \n")
-        for file in nfilelist:
-            print(file)
-    if len(mfilelist) > 0:
-        print("\nModified Files: \n")
-        for file in mfilelist:
-            print(file)
-    if len(dfilelist) > 0:
-        print("\nDeleted Files: \n")
-        for file in dfilelist:
-            print(file)
+    nf, mf, df = "", "", ""
+    mfilelist = (subprocess.getoutput("git ls-files -m").splitlines())
+    nfilelist = (subprocess.getoutput("git ls-files -o --exclude-standard").splitlines())
+    dfilelist = (subprocess.getoutput("git ls-files -d").splitlines())
+    if nfilelist:
+        nf = f"[ New Files: {' '.join(nfilelist)} ]"
+    if mfilelist:
+        mf = f"[ Modified Files: {' '.join(mfilelist)} ]"
+    if dfilelist:
+        df = f"[ Deleted Files: {' '.join(dfilelist)} ]"
+    greeting(nf, mf, df)
 
 
 def main():
     choice = "1"
     while choice != "99":
         os.system("cls")
-        greeting()
+        all_files()
         print(f"\n1) {bcolors.OKCYAN}Commit Files{bcolors.ENDC}\n"
               f"2) {bcolors.OKGREEN}Checkout Branch{bcolors.ENDC}\n"
               f"3) {bcolors.OKBLUE}Stash{bcolors.ENDC}\n"
