@@ -6,3 +6,4 @@ dist
 *.txt
 !requirements.txt
 *.yml
+GitClient.egg-info

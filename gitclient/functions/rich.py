@@ -1,6 +1,8 @@
-import rich
+from rich import Console
+from rich.prompt import Prompt
 
-console = rich.Console(color_system="256")
+console = Console(color_system="256")
+
 
 def print(prompt, override: str = None) -> None:
     if override is not None:
@@ -14,7 +16,6 @@ def error(msg: str, override: str = None) -> None:
         print(f"[white on red][@] {msg}[/white on red]")
     else:
         print(f"[{override}][@] {msg}[/{override}]")
-    logging.error(f"{msg}\nLocals: {locals()}")
 
 
 def warning(msg: str, override: str = None) -> None:
@@ -22,7 +23,6 @@ def warning(msg: str, override: str = None) -> None:
         print(f"[white on yellow][!] {msg}[/white on yellow]")
     else:
         print(f"[{override}][!] {msg}[/{override}]")
-    logging.warning(msg)
 
 
 def info(msg: str, override: str = None) -> None:
