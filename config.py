@@ -47,4 +47,4 @@ def input(prompt: str, override: str = None, default=None, password=False) -> st
         if override is not None:
             return Prompt.ask(f"[{override}]{prompt}[/{override}]", default=default, password=password)
         else:
-            return Prompt.ask(f"{prompt}", default=default, password=password
+            return Prompt.ask(f"{prompt}", default=default, password=password)
