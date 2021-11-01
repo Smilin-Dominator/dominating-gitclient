@@ -31,6 +31,9 @@ def commitmsg():
 
 
 def greeting(*modules: str):
+    modules = list(modules)
+    for i in range(modules.count("")):
+        modules.remove("")
     modules = "\n    ".join(modules)
     print(f"""{bcolors.HEADER}
          .oooooo..o                    o8o  oooo   o8o              o8o                                  
