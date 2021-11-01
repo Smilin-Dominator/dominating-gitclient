@@ -30,5 +30,3 @@ def main():
                 lg()
             case 99:
                 exit(0)
-            case _:
-                warning("Number doesn't match")
