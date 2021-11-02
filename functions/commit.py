@@ -16,7 +16,7 @@ def stage_files(get_files):
         num = 0
         print("\n")
         for index, file in enumerate(mega):
-            if file in staged and modified:
+            if (file in staged and modified) and (mega.count(file) > 2):
                 print(f"\t{index}) SM: {file}")
                 mega.reverse()
                 mega.remove(file)
@@ -32,7 +32,7 @@ def stage_files(get_files):
                     print(f"\t{index}) D: {file}")
             num += 1
         try:
-            print("\n")
+            print("\n\t")
             choice = int(input("\tIndex (Ctrl+C to Stop)", choices=[str(i) for i in range(num)]))
             file = mega[choice]
             if file in staged:
