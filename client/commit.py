@@ -1,5 +1,5 @@
 from functions.get_files import *
-from functions.commit import stage_files
+from functions.commit import stage_files, commit
 from config import header, input, print
 
 
@@ -37,7 +37,7 @@ def main():
             case 1:
                 stage_files(set_header)
             case 2:
-                pass
+                commit()
             case 3:
                 pass
             case 99:

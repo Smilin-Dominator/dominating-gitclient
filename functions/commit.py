@@ -39,3 +39,7 @@ def stage_files(get_files):
                 stdout.write('\x1b[2K')
         except KeyboardInterrupt:
             break
+
+
+def commit():
+    call("git commit", shell=True, stdout=DEVNULL, stderr=DEVNULL)
