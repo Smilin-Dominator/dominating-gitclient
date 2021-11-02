@@ -16,17 +16,20 @@ def main():
         ..
         99) Quit
         """)
-        choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
-        match choice:
-            case 1:
-                com()
-            case 2:
-                pass
-            case 3:
-                pass
-            case 4:
-                pass
-            case 5:
-                lg()
-            case 99:
-                exit(0)
+        try:
+            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
+            match choice:
+                case 1:
+                    com()
+                case 2:
+                    pass
+                case 3:
+                    pass
+                case 4:
+                    pass
+                case 5:
+                    lg()
+                case 99:
+                    exit(0)
+        except TypeError:
+            pass

@@ -33,17 +33,20 @@ def main():
         99) Previous Menu
             """
         )
-        choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
-        match choice:
-            case 1:
-                stage_files(set_header)
-            case 2:
-                commit()
-            case 3:
-                pass
-            case 4:
-                diff_staged()
-            case 5:
-                diff()
-            case 99:
-                break
+        try:
+            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
+            match choice:
+                case 1:
+                    stage_files(set_header)
+                case 2:
+                    commit()
+                case 3:
+                    pass
+                case 4:
+                    diff_staged()
+                case 5:
+                    diff()
+                case 99:
+                    break
+        except TypeError:
+            pass
