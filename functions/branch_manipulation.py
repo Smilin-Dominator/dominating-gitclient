@@ -1,6 +1,7 @@
+import time
 from subprocess import call, getoutput, DEVNULL
-from config import header, print, input, track
-from .stashes import get_index
+from config import header, print, input, track, get_branch, syntax, console
+from .stashes import get_index, stash
 from time import sleep
 
 
@@ -80,8 +81,38 @@ def create_branch():
                     elif n == 40:
                         call("git fetch")
                     else:
-                        sleep(0.02)
+                        sleep(0.002)
                 input("\t[*] Success! Press (enter) to continue")
                 break
         except KeyboardInterrupt:
             break
+
+
+def merge():
+
+    def merge_func(branch: str):
+        log = getoutput(f"git merge {branch}")
+        out = log.splitlines()
+        out = ["\t" + a for a in out]
+        for line in out:
+            console.print(syntax(line, lexer_name="diff"))
+        return log
+
+    try:
+        conf = input("\t[*] Do You Want To Merge Into This Branch or Checkout Another?", choices=["this", "checkout"])
+        if conf == "checkout":
+            checkout()
+        local, _ = set_header("f")
+        local = [a.strip("'") for a in local]
+        local.remove(get_branch())
+        bra = input("\t[*] Which Branch Do You Want To Merge?", choices=local)
+        log = merge_func(bra)
+        if log.startswith("error:"):
+            if log.startswith("error: Your local changes to the following files would be overwritten by merge:"):
+                choice = input("[*] Would You Like To Stash?", choices=["y", "n"])
+                if choice == "y":
+                    stash(f"gitclient_merge_{get_branch()}_{bra}_{time.time()}")
+                    merge_func(bra)
+        input("\t[*] Click (enter) To Continue", override="tan")
+    except KeyboardInterrupt:
+        pass

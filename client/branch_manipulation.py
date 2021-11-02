@@ -1,4 +1,4 @@
-from config import input, print
+from config import input
 from functions.branch_manipulation import *
 
 
@@ -21,10 +21,8 @@ def main():
                 case 2:
                     create_branch()
                 case 3:
-                    pass
+                    merge()
                 case 4:
-                    pass
-                case 5:
                     pass
                 case 99:
                     break
