@@ -19,7 +19,7 @@ def main():
                 case 1:
                     checkout()
                 case 2:
-                    pass
+                    create_branch()
                 case 3:
                     pass
                 case 4:

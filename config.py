@@ -1,6 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.syntax import Syntax
+from rich.progress import track
 from subprocess import getoutput
 from os import getcwd, system
 import logging
@@ -11,6 +12,7 @@ logging.basicConfig(filename="log.txt", format=log_format)
 # ----------- Rich / Colour Related ----------------------------------- #
 console = Console(color_system="256")
 syntax = Syntax
+track = track
 
 
 def print(prompt, override: str = None) -> None:

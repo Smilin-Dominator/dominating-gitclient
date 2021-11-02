@@ -1,5 +1,6 @@
-from subprocess import call, getoutput
-from config import header, print, input
+from subprocess import call, getoutput, DEVNULL
+from config import header, print, input, track
+from time import sleep
 
 
 def set_header(get=None):
@@ -44,3 +45,35 @@ def checkout():
         input("")
     except KeyboardInterrupt:
         pass
+
+
+def create_branch():
+    while True:
+        try:
+            name = input("\tName of New Branch (Ctrl+C To Abort)", override="green1")
+            if " " in name:
+                print("\t[!] Name With Space Not Allowed!", override="tan")
+            else:
+                print(f"\t[*] Making branch '{name}'")
+                conf = input("\t[*] Proceed?", choices=["y", "n"])
+                if conf == "n":
+                    break
+                conf = input("\t[*] Would you like to checkout the branch (if you have changes, they will be stashed in 'gc_temp')", choices=["y", "n"])
+                if conf == "y":
+                    rg = 100
+                else:
+                    rg = 50
+                for n in track(range(rg), description="\tSetting Up Branch"):
+                    if n == 25:
+                        call(f"git branch {name}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+                    elif n == 30 and conf == "y":
+                        call(f"git stash -m 'gc_temp'", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+                        call(f"git checkout {name}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+                    elif n == 40:
+                        call("git fetch")
+                    else:
+                        sleep(0.02)
+                input("\t[*] Success! Press (enter) to continue")
+                break
+        except KeyboardInterrupt:
+            break
