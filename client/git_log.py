@@ -1,12 +1,8 @@
-from config import console
-from subprocess import Popen, PIPE
+from config import console, input
+from subprocess import getoutput
 
 
 def main():
-    with console.pager():
-        process = Popen(["git", "log", "--graph"], stdout=PIPE, stderr=PIPE, universal_newlines=True)
-        while process.stdout.readable():
-            line = process.stdout.readline()
-            if not line:
-                break
-            console.print(line.strip())
+    with console.pager(styles=True):
+        console.print(getoutput("git log"))
+    input("(enter to continue)", "red")
