@@ -36,11 +36,11 @@ def stage_files(get_files):
             file = mega[choice]
             if file in staged:
                 if file in modified:
-                    call(f"git stage {file}", shell=True, stdout=DEVNULL)
+                    call(f"git stage \"{file}\"", shell=True, stdout=DEVNULL)
                 else:
-                    call(f"git restore --staged {file}", shell=True, stdout=DEVNULL)
+                    call(f"git restore --staged \"{file}\"", shell=True, stdout=DEVNULL)
             else:
-                call(f"git stage {file}", shell=True, stdout=DEVNULL)
+                call(f"git stage \"{file}\"", shell=True, stdout=DEVNULL)
             for i in range(3 + 2 + num):
                 stdout.write('\x1b[1A')
                 stdout.write('\x1b[2K')
@@ -77,7 +77,7 @@ def reset(files):
         print("\n\t")
         choice = int(input("\tIndex (Ctrl+C to Abort)", choices=[str(i) for i in range(num)]))
         file = mega[choice]
-        call(f"git checkout HEAD -- {file}", shell=True)
+        call(f"git checkout HEAD -- \"{file}\"", shell=True)
     except KeyboardInterrupt:
         pass
 
