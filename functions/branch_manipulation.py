@@ -1,6 +1,6 @@
 import time
 from subprocess import call, getoutput, DEVNULL
-from config import header, print, input, track, get_branch, syntax, console
+from config import header, print, input, track, get_branch, syntax, console, warning
 from .stashes import get_index, stash
 from time import sleep
 
@@ -98,20 +98,23 @@ def merge():
         return log
 
     try:
-        conf = input("\t[*] Do You Want To Merge Into This Branch or Checkout Another?", choices=["this", "checkout"])
-        if conf == "checkout":
-            checkout()
         local, _ = set_header("f")
-        local = [a.strip("'") for a in local]
-        local.remove(get_branch())
-        bra = input("\t[*] Which Branch Do You Want To Merge?", choices=local)
-        log = merge_func(bra)
-        if log.startswith("error:"):
-            if log.startswith("error: Your local changes to the following files would be overwritten by merge:"):
-                choice = input("[*] Would You Like To Stash?", choices=["y", "n"])
-                if choice == "y":
-                    stash(f"gitclient_merge_{get_branch()}_{bra}_{time.time()}")
-                    merge_func(bra)
+        if len(local) < 2:
+            warning("\tLess Than Two Branches, Cannot Merge")
+        else:
+            conf = input("\t[*] Do You Want To Merge Into This Branch or Checkout Another?", choices=["this", "checkout"])
+            if conf == "checkout":
+                checkout()
+            local = [a.strip("'") for a in local]
+            local.remove(get_branch())
+            bra = input("\t[*] Which Branch Do You Want To Merge?", choices=local)
+            log = merge_func(bra)
+            if log.startswith("error:"):
+                if log.startswith("error: Your local changes to the following files would be overwritten by merge:"):
+                    choice = input("[*] Would You Like To Stash?", choices=["y", "n"])
+                    if choice == "y":
+                        stash(f"gitclient_merge_{get_branch()}_{bra}_{time.time()}")
+                        merge_func(bra)
         input("\t[*] Click (enter) To Continue", override="tan")
     except KeyboardInterrupt:
         pass
