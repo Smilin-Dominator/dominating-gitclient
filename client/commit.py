@@ -41,7 +41,7 @@ def main():
                 case 2:
                     commit()
                 case 3:
-                    pass
+                    reset(set_header("get"))
                 case 4:
                     diff_staged()
                 case 5:
