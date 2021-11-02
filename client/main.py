@@ -2,6 +2,7 @@ from sys import exit
 from config import header, print, input, error, warning
 from .commit import main as com
 from .git_log import main as lg
+from .remote import main as r
 from .branch_manipulation import main as br
 
 
@@ -25,7 +26,7 @@ def main():
                 case 2:
                     br()
                 case 3:
-                    pass
+                    r()
                 case 4:
                     pass
                 case 5:
