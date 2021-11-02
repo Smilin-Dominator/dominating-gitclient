@@ -71,7 +71,7 @@ def header(*modules: str):
     modules = list(modules)
     for i in range(modules.count("")):
         modules.remove("")
-    modules = "\n    ".join(modules)
+    modules = "\n\t".join(modules)
     system("cls")
     print(f"""[pale_turquoise1]
              .oooooo..o                    o8o  oooo   o8o              o8o                                  
