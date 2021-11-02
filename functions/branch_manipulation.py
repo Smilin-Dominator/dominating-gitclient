@@ -1,6 +1,13 @@
 from subprocess import call, getoutput, DEVNULL
 from config import header, print, input, track
+from .stashes import get_index
 from time import sleep
+
+
+def cloud_save(branch: str):
+    call(f"git stash -m 'gc_temp'", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    call(f"git checkout {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    call(f"git stash pop {get_index('gc_temp')}")
 
 
 def set_header(get=None):
@@ -58,7 +65,7 @@ def create_branch():
                 conf = input("\t[*] Proceed?", choices=["y", "n"])
                 if conf == "n":
                     break
-                conf = input("\t[*] Would you like to checkout the branch (if you have changes, they will be stashed in 'gc_temp')", choices=["y", "n"])
+                conf = input("\t[*] Would you like to checkout the branch?", choices=["y", "n"])
                 if conf == "y":
                     rg = 100
                 else:
@@ -67,8 +74,7 @@ def create_branch():
                     if n == 25:
                         call(f"git branch {name}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
                     elif n == 30 and conf == "y":
-                        call(f"git stash -m 'gc_temp'", shell=True, stdout=DEVNULL, stderr=DEVNULL)
-                        call(f"git checkout {name}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+                        cloud_save(name)
                     elif n == 40:
                         call("git fetch")
                     else:
