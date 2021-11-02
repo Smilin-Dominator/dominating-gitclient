@@ -92,10 +92,9 @@ def merge():
 
     def merge_func(branch: str):
         log = getoutput(f"git merge {branch}")
-        out = log.splitlines()
-        out = ["\t" + a for a in out]
-        for line in out:
-            console.print(syntax(line, lexer_name="diff"))
+        with console.pager(styles=True):
+            out = syntax(log, background_color="default", lexer_name="diff")
+            console.print(out)
         return log
 
     try:
