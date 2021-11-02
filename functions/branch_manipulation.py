@@ -37,11 +37,11 @@ def checkout():
         choice = int(input("\n\tChoice (Ctrl+C to Abort): ", choices=[str(i) for i in range(length)]))
         branch = all[choice].strip("'")
         if (branch in r) and (branch.strip("origin/") not in l):
-            call(f"git checkout --track {branch}")
+            call(f"git checkout --track {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
         elif (branch in r) and (branch.strip("origin/") in l):
-            call(f"git checkout {branch.strip('origin/')}")
+            call(f"git checkout {branch.strip('origin/')}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
         else:
-            call (f"git checkout {branch}")
+            call (f"git checkout {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
         input("")
     except KeyboardInterrupt:
         pass
