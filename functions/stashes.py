@@ -1,4 +1,4 @@
-from subprocess import getoutput
+from subprocess import getoutput, call, DEVNULL
 
 
 def get_index(message: str) -> int:
@@ -7,3 +7,7 @@ def get_index(message: str) -> int:
         line = line.split(": ")
         if line[2].strip("'") == message:
             return int(line[0].strip("stash@{}"))
+
+
+def stash(message: str):
+    call(f"git stash -m '{message}'", shell=True, stderr=DEVNULL, stdout=DEVNULL)
