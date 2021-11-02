@@ -4,10 +4,13 @@ from .stashes import get_index
 from time import sleep
 
 
-def cloud_save(branch: str):
+def cloud_save(branch: str, options=None):
     call(f"git stash -m 'gc_temp'", shell=True, stdout=DEVNULL, stderr=DEVNULL)
-    call(f"git checkout {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
-    call(f"git stash pop {get_index('gc_temp')}")
+    if options is not None:
+        call(["git", "checkout", options, branch], shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    else:
+        call(["git", "checkout", branch], shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    call(f"git stash pop {get_index('gc_temp')}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
 
 
 def set_header(get=None):
@@ -44,12 +47,11 @@ def checkout():
         choice = int(input("\n\tChoice (Ctrl+C to Abort): ", choices=[str(i) for i in range(length)]))
         branch = all[choice].strip("'")
         if (branch in r) and (branch.strip("origin/") not in l):
-            call(f"git checkout --track {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+            cloud_save(branch, "--track")
         elif (branch in r) and (branch.strip("origin/") in l):
-            call(f"git checkout {branch.strip('origin/')}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+            cloud_save(branch.strip("origin/"))
         else:
-            call (f"git checkout {branch}", shell=True, stdout=DEVNULL, stderr=DEVNULL)
-        input("")
+            cloud_save(branch)
     except KeyboardInterrupt:
         pass
 
