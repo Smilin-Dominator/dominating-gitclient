@@ -1,10 +1,11 @@
 from itertools import chain
-from config import input, print, console, syntax
+from config import input, print, console, syntax, info
 from sys import stdout
 from subprocess import call, DEVNULL, getoutput
 
 
 def stage_files(get_files):
+    print("\t[?] Toggling a staged file will discard it's changes", override="tan")
     while True:
         files = get_files("g")
         staged = files[0]
@@ -16,7 +17,12 @@ def stage_files(get_files):
         num = 0
         print("\n")
         for index, file in enumerate(mega):
-            if file in staged:
+            if file in staged and modified:
+                print(f"\t{index}) SM: {file}")
+                mega.reverse()
+                mega.remove(file)
+                mega.reverse()
+            elif file in staged:
                 print(f"\t{index}) S: {file}")
             else:
                 if file in new:
@@ -31,7 +37,10 @@ def stage_files(get_files):
             choice = int(input("\tIndex (Ctrl+C to Stop)", choices=[str(i) for i in range(num)]))
             file = mega[choice]
             if file in staged:
-                call(f"git reset {file}", shell=True, stdout=DEVNULL)
+                if file in modified:
+                    call(f"git stage {file}", shell=True, stdout=DEVNULL)
+                else:
+                    call(f"git restore {file}", shell=True, stdout=DEVNULL)
             else:
                 call(f"git stage {file}", shell=True, stdout=DEVNULL)
             for i in range(3 + 2 + num):
