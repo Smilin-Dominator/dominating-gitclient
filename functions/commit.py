@@ -5,7 +5,6 @@ from subprocess import call, DEVNULL, getoutput
 
 
 def stage_files(get_files):
-    print("\t[?] Toggling a staged file will discard it's changes", override="tan")
     while True:
         files = get_files("g")
         staged = files[0]
@@ -40,7 +39,7 @@ def stage_files(get_files):
                 if file in modified:
                     call(f"git stage {file}", shell=True, stdout=DEVNULL)
                 else:
-                    call(f"git restore {file}", shell=True, stdout=DEVNULL)
+                    call(f"git restore --staged {file}", shell=True, stdout=DEVNULL)
             else:
                 call(f"git stage {file}", shell=True, stdout=DEVNULL)
             for i in range(3 + 2 + num):
