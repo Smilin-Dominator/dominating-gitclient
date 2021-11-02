@@ -1,5 +1,5 @@
 from functions.get_files import *
-from functions.commit import stage_files, commit
+from functions.commit import *
 from config import header, input, print
 
 
@@ -28,11 +28,12 @@ def main():
         2) Commit
         3) Reset Changes
         4) Difference (Staged)
+        5) Difference (All)
         ..
         99) Previous Menu
             """
         )
-        choice = int(input("\tChoice", choices=["1", "2", "3", "99"]))
+        choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
         match choice:
             case 1:
                 stage_files(set_header)
@@ -40,5 +41,9 @@ def main():
                 commit()
             case 3:
                 pass
+            case 4:
+                diff_staged()
+            case 5:
+                diff()
             case 99:
                 break

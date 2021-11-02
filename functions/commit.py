@@ -1,7 +1,7 @@
 from itertools import chain
-from config import input, print
+from config import input, print, console, syntax
 from sys import stdout
-from subprocess import call, DEVNULL
+from subprocess import call, DEVNULL, getoutput
 
 
 def stage_files(get_files):
@@ -43,3 +43,17 @@ def stage_files(get_files):
 
 def commit():
     call("git commit", shell=True, stdout=DEVNULL, stderr=DEVNULL)
+
+
+def diff_staged():
+    with console.pager(styles=True):
+        out = syntax(getoutput("git diff --staged"), background_color="default", lexer_name="diff")
+        console.print(out)
+    input("(enter to continue)", override="red")
+
+
+def diff():
+    with console.pager(styles=True):
+        out = syntax(getoutput("git diff"), background_color="default", lexer_name="diff")
+        console.print(out)
+    input("(enter to continue)", override="red")
