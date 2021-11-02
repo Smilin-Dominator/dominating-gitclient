@@ -35,8 +35,7 @@ def main():
         choice = int(input("\tChoice", choices=["1", "2", "3", "99"]))
         match choice:
             case 1:
-                files = set_header("g")
-                stage_files(files)
+                stage_files(set_header)
             case 2:
                 pass
             case 3:

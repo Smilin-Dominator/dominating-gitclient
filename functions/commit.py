@@ -1,10 +1,12 @@
 from itertools import chain
 from config import input, print
 from sys import stdout
+from subprocess import call, DEVNULL
 
 
-def stage_files(files):
+def stage_files(get_files):
     while True:
+        files = get_files("g")
         staged = files[0]
         modified = files[1]
         new = files[2]
@@ -26,7 +28,12 @@ def stage_files(files):
             num += 1
         try:
             print("\n")
-            int(input("\tIndex (Ctrl+C to Stop)", choices=[str(i) for i in range(num)]))
+            choice = int(input("\tIndex (Ctrl+C to Stop)", choices=[str(i) for i in range(num)]))
+            file = mega[choice]
+            if file in staged:
+                call(f"git reset {file}", shell=True, stdout=DEVNULL)
+            else:
+                call(f"git stage {file}", shell=True, stdout=DEVNULL)
             for i in range(3 + 2 + num):
                 stdout.write('\x1b[1A')
                 stdout.write('\x1b[2K')
