@@ -1,5 +1,4 @@
-from itertools import chain
-from config import input, print, console, syntax, info
+from config import input, print, console, syntax
 from sys import stdout
 from subprocess import call, DEVNULL, getoutput
 
@@ -11,12 +10,12 @@ def stage_files(get_files):
         modified = files[1]
         new = files[2]
         deleted = files[3]
-        mega = list(chain(staged, modified, new, deleted))
+        mega = list(staged + modified + new + deleted)
         mega.sort()
         num = 0
         print("\n")
         for index, file in enumerate(mega):
-            if (file in staged and modified) and (mega.count(file) > 2):
+            if (bool(file in staged and modified)) and (mega.count(file) == 2):
                 print(f"\t{index}) SM: {file}")
                 mega.reverse()
                 mega.remove(file)
@@ -54,12 +53,12 @@ def reset(files):
     modified = files[1]
     new = files[2]
     deleted = files[3]
-    mega = list(chain(staged, modified, new, deleted))
+    mega = list(staged + modified + new + deleted)
     mega.sort()
     num = 0
     print("\n")
     for index, file in enumerate(mega):
-        if (file in staged and modified) and (mega.count(file) > 2):
+        if (bool(file in staged and modified)) and (mega.count(file) == 2):
             print(f"\t{index}) SM: {file}")
             mega.reverse()
             mega.remove(file)
