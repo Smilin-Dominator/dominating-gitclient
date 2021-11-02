@@ -1,8 +1,9 @@
 import time
 from subprocess import call, getoutput, DEVNULL
-from config import header, print, input, track, get_branch, syntax, console, warning
-from .stashes import get_index, stash
 from time import sleep
+
+from config import header, print, input, track, get_branch, syntax, console
+from .stashes import get_index, stash
 
 
 def cloud_save(branch: str, options=None):
@@ -89,7 +90,6 @@ def create_branch():
 
 
 def merge():
-
     def merge_func(branch: str):
         log = getoutput(f"git merge {branch}")
         with console.pager(styles=True):
@@ -100,9 +100,10 @@ def merge():
     try:
         local, _ = set_header("f")
         if len(local) < 2:
-            warning("\tLess Than Two Branches, Cannot Merge")
+            print("\t[*] Less Than Two Branches, Cannot Merge", override="yellow")
         else:
-            conf = input("\t[*] Do You Want To Merge Into This Branch or Checkout Another?", choices=["this", "checkout"])
+            conf = input("\t[*] Do You Want To Merge Into This Branch or Checkout Another?",
+                         choices=["this", "checkout"])
             if conf == "checkout":
                 checkout()
             local = [a.strip("'") for a in local]
@@ -118,3 +119,15 @@ def merge():
         input("\t[*] Click (enter) To Continue", override="tan")
     except KeyboardInterrupt:
         pass
+
+
+def delete():
+    local, _ = set_header("get")
+    local = [a.strip("'") for a in local]
+    if len(local) < 2:
+        print("\t[!] You cannot delete a branch when there's less than 2", override="yellow")
+    else:
+        local.remove(get_branch())
+        branch = input("\tWhich Branch Do You Want To Delete?", choices=local)
+        call(f"git branch -D {branch}", shell=True, stdout=DEVNULL, stdin=DEVNULL)
+    input("\t[*] Click (enter) To Continue", override="tan")

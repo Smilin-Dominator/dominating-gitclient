@@ -23,7 +23,7 @@ def main():
                 case 3:
                     merge()
                 case 4:
-                    pass
+                    delete()
                 case 99:
                     break
         except TypeError:
