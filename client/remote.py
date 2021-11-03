@@ -21,9 +21,9 @@ def main():
                 case 2:
                     pull()
                 case 3:
-                    pass
+                    fetch()
                 case 4:
-                    pass
+                    manage_remotes()
                 case 99:
                     break
         except TypeError:
