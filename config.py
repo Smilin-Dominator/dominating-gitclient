@@ -52,6 +52,10 @@ def input(prompt: str, override: str = None, default=None, password=False, choic
         return Prompt.ask(f"{prompt}", default=default, password=password, choices=choices)
 
 
+def enter_prompt():
+    input("\t[*] Click (enter) to continue", override="tan")
+
+
 # ---------------------- Other Functions ---------------------------------------
 def last_commit() -> str:
     raw = getoutput('git log -1 --pretty=%B')
