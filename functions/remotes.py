@@ -33,38 +33,47 @@ def manage_remotes():
                     warning("You cannot have spaces in a link!")
                     continue
                 call(f"git remote add {name} {location}", shell=True)
+                enter_prompt()
                 break
             except KeyboardInterrupt:
                 break
 
-    while True:
-        print(
-            """
-        1) Add A Remote
-        2) Rename A Remote
-        3) Change A Remote's URL
-        4) Delete A Remote
-        ..
-        99) Previous Menu
-            """
-        )
-        try:
-            choice = int(input("\tChoice", override="light_steel_blue1", choices=["1", "2", "3", "4", "99"]))
-            match choice:
-                case 1:
-                    add_remote()
-                case 2:
-                    pass
-                case 3:
-                    pass
-                case 4:
-                    pass
-                case 99:
-                    break
-        except TypeError:
-            pass
-        except KeyboardInterrupt:
-            break
+    def rename_remote():
+        while True:
+            try:
+                name = input("\tName Of The Remote You Want To Rename?", choices=set_header("g"), override="cornsilk1")
+                new = input("\tNew Name", override="misty_rose3")
+                if " " in new:
+                    warning("You Cannot Have Spaces In A Remote Name!")
+                    continue
+                call(f"git remote rename {name} {new}", shell=True)
+                break
+            except KeyboardInterrupt:
+                break
+
+    print(
+        """
+    1) Add A Remote
+    2) Rename A Remote
+    3) Change A Remote's URL
+    4) Delete A Remote
+        """
+    )
+    try:
+        choice = int(input("\tChoice", override="light_steel_blue1", choices=["1", "2", "3", "4"]))
+        match choice:
+            case 1:
+                add_remote()
+            case 2:
+                rename_remote()
+            case 3:
+                pass
+            case 4:
+                pass
+    except TypeError:
+        pass
+    except KeyboardInterrupt:
+        pass
 
 
 def fetch():
