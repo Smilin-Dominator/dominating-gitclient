@@ -24,15 +24,16 @@ def manage_remotes():
     def add_remote():
         while True:
             try:
-                name = input("The Name Of The New Remote", override="plum2")
+                name = input("\tThe Name Of The New Remote", override="plum2")
                 if " " in name:
                     warning("You cannot have spaces in a remote name!")
-                else:
-                    location = input("The Address (Link)", override="orange1")
-                    if " " in location:
-                        warning("You cannot have spaces in a link!")
-                    else:
-                        call(f"git remote add {name} {location}")
+                    continue
+                location = input("\tThe Address (Link)", override="orange1")
+                if " " in location:
+                    warning("You cannot have spaces in a link!")
+                    continue
+                call(f"git remote add {name} {location}", shell=True)
+                break
             except KeyboardInterrupt:
                 break
 
