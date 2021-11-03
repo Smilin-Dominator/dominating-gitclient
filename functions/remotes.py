@@ -20,12 +20,28 @@ def set_branch_upstream(branch=None, remote=None):
 
 
 def manage_remotes():
+
+    def add_remote():
+        while True:
+            try:
+                name = input("The Name Of The New Remote", override="plum2")
+                if " " in name:
+                    warning("You cannot have spaces in a remote name!")
+                else:
+                    location = input("The Address (Link)", override="orange1")
+                    if " " in location:
+                        warning("You cannot have spaces in a link!")
+                    else:
+                        call(f"git remote add {name} {location}")
+            except KeyboardInterrupt:
+                break
+
     while True:
         print(
             """
         1) Add A Remote
         2) Rename A Remote
-        3) Change A Remote
+        3) Change A Remote's URL
         4) Delete A Remote
         ..
         99) Previous Menu
@@ -35,7 +51,7 @@ def manage_remotes():
             choice = int(input("\tChoice", override="light_steel_blue1", choices=["1", "2", "3", "4", "99"]))
             match choice:
                 case 1:
-                    pass
+                    add_remote()
                 case 2:
                     pass
                 case 3:
@@ -48,8 +64,6 @@ def manage_remotes():
             pass
         except KeyboardInterrupt:
             break
-
-
 
 
 def fetch():
