@@ -1,5 +1,5 @@
 from config import header, warning, input, print, get_branch, enter_prompt
-from subprocess import getoutput, call
+from subprocess import getoutput, call, DEVNULL
 
 
 def set_header(get=None):
@@ -21,6 +21,10 @@ def set_branch_upstream(branch=None, remote=None):
 
 def manage_remotes():
     pass
+
+
+def fetch():
+    call(["git", "fetch"], shell=True, stdout=DEVNULL, stderr=DEVNULL)
 
 
 def pull():
