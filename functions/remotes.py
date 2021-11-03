@@ -20,7 +20,36 @@ def set_branch_upstream(branch=None, remote=None):
 
 
 def manage_remotes():
-    pass
+    while True:
+        print(
+            """
+        1) Add A Remote
+        2) Rename A Remote
+        3) Change A Remote
+        4) Delete A Remote
+        ..
+        99) Previous Menu
+            """
+        )
+        try:
+            choice = int(input("\tChoice", override="light_steel_blue1", choices=["1", "2", "3", "4", "99"]))
+            match choice:
+                case 1:
+                    pass
+                case 2:
+                    pass
+                case 3:
+                    pass
+                case 4:
+                    pass
+                case 99:
+                    break
+        except TypeError:
+            pass
+        except KeyboardInterrupt:
+            break
+
+
 
 
 def fetch():
