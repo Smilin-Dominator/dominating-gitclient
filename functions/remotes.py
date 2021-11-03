@@ -32,7 +32,7 @@ def manage_remotes():
                 if " " in location:
                     warning("You cannot have spaces in a link!")
                     continue
-                call(f"git remote add {name} {location}", shell=True)
+                call(f"git remote add {name} '{location}'", shell=True)
                 enter_prompt()
                 break
             except KeyboardInterrupt:
@@ -51,12 +51,25 @@ def manage_remotes():
             except KeyboardInterrupt:
                 break
 
+    def change_remote_url():
+        while True:
+            try:
+                branch = input("\tName Of The Branch?", choices=set_header("g"), override="indian_red1")
+                new = input("\tNew URL", override="deep_pink2")
+                if " " in new:
+                    warning("You Cannot Have Spaces In A Remote URL!")
+                    continue
+                call(f"git remote set-url {branch} '{new}'")
+                break
+            except KeyboardInterrupt:
+                break
+
     print(
         """
-    1) Add A Remote
-    2) Rename A Remote
-    3) Change A Remote's URL
-    4) Delete A Remote
+        1) Add A Remote
+        2) Rename A Remote
+        3) Change A Remote's URL
+        4) Delete A Remote
         """
     )
     try:
@@ -67,7 +80,7 @@ def manage_remotes():
             case 2:
                 rename_remote()
             case 3:
-                pass
+                change_remote_url()
             case 4:
                 pass
     except TypeError:
