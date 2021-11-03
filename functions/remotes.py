@@ -64,6 +64,13 @@ def manage_remotes():
             except KeyboardInterrupt:
                 break
 
+    def delete_remote():
+        try:
+            branch = input("\tName Of The Branch?", choices=set_header("g"), override="indian_red1")
+            call(f"git remote remove {branch}")
+        except KeyboardInterrupt:
+            pass
+
     print(
         """
         1) Add A Remote
@@ -82,7 +89,7 @@ def manage_remotes():
             case 3:
                 change_remote_url()
             case 4:
-                pass
+                delete_remote()
     except TypeError:
         pass
     except KeyboardInterrupt:
