@@ -14,12 +14,13 @@ def main():
         2) Branch Functions
         3) Remote Management
         4) Stash Management
-        5) Commit Log
+        5) Patch Management
+        6) Commit Log
         ..
         99) Quit
         """)
         try:
-            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
+            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "6", "99"]))
             match choice:
                 case 1:
                     com()
@@ -30,6 +31,8 @@ def main():
                 case 4:
                     pass
                 case 5:
+                    pass
+                case 6:
                     lg()
                 case 99:
                     exit(0)
