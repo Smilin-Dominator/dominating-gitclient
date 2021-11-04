@@ -18,7 +18,7 @@ def main():
             choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
             match choice:
                 case 1:
-                    pass
+                    stash()
                 case 2:
                     pass
                 case 3:

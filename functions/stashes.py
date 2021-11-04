@@ -1,5 +1,5 @@
 from subprocess import getoutput, call, DEVNULL
-from config import header
+from config import header, input
 
 
 def get_stashes():
@@ -22,5 +22,9 @@ def get_index(message: str) -> int:
             return int(line[0].strip("stash@{}"))
 
 
-def stash(message: str):
+def stash(message: str = None):
+    if message is not None:
+        message = message
+    else:
+        message = input("Message")
     call(f"git stash -m '{message}'", shell=True, stderr=DEVNULL, stdout=DEVNULL)
