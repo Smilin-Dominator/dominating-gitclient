@@ -10,14 +10,13 @@ def main():
         1) Create Patch from Unstaged Changes
         2) Create Patch from Staged Changes
         3) Create Patch from Branch
-        4) Apply Patch From Clipboard
-        5) Apply Patch From File
+        4) Apply Patch From File
         ..
         99) Previous Menu
             """
         )
         try:
-            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
+            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "99"]))
             match choice:
                 case 1:
                     unstaged()
@@ -26,9 +25,7 @@ def main():
                 case 3:
                     branch()
                 case 4:
-                    pass
-                case 5:
-                    pass
+                    apply_from_file()
                 case 99:
                     break
         except TypeError:
