@@ -17,4 +17,4 @@ easier than using Git CLI
   - If you don't have a git repository on the DIR you chose, it'll ask you if you want to initialize one.
 #### Functions
 - The functions are categorized into multiple categories.
-- Well no point mentioning them here now, but `CHEESE`
+- TBW
