@@ -1,3 +1,4 @@
-flake8
-pyyaml
+flake8 
+pyinstaller 
+pyyaml 
 rich
