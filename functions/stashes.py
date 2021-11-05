@@ -1,5 +1,5 @@
 from subprocess import getoutput, call, DEVNULL
-from config import header, input, warning
+from config import header, input, warning, enter_prompt
 
 
 def get_stashes():
@@ -44,3 +44,17 @@ def apply_stash(pop: bool):
                 call(f"git stash apply {get_index(st)}", shell=True)
         except KeyboardInterrupt:
             pass
+    enter_prompt()
+
+
+def drop_stash():
+    stashes = [line.split(": ")[2].strip("'") for line in get_stashes()]
+    if len(stashes) == 0:
+        warning("You Have No Stashes")
+    else:
+        try:
+            st = input("\tWhich Stash Do You Want To Drop?", choices=stashes, override="orange1")
+            call(f"git stash drop {get_index(st)}", shell=True)
+        except KeyboardInterrupt:
+            pass
+    enter_prompt()

@@ -24,7 +24,7 @@ def main():
                 case 3:
                     apply_stash(True)
                 case 4:
-                    pass
+                    drop_stash()
                 case 5:
                     pass
                 case 99:
