@@ -20,11 +20,11 @@ def main():
             choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
             match choice:
                 case 1:
-                    pass
+                    unstaged()
                 case 2:
-                    pass
+                    set_header()
                 case 3:
-                    pass
+                    branch()
                 case 4:
                     pass
                 case 5:
