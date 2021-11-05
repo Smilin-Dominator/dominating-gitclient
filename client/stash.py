@@ -20,9 +20,9 @@ def main():
                 case 1:
                     stash()
                 case 2:
-                    pass
+                    apply_stash(False)
                 case 3:
-                    pass
+                    apply_stash(True)
                 case 4:
                     pass
                 case 5:
