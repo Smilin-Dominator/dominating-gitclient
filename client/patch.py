@@ -1,0 +1,35 @@
+from functions.patch import *
+from config import input, print
+
+
+def main():
+    while True:
+        set_header()
+        print(
+            """
+        1) Create Patch from Unstaged Changes
+        2) Create Patch from Staged Changes
+        3) Create Patch from Branch
+        4) Apply Patch From Clipboard
+        5) Apply Patch From File
+        ..
+        99) Previous Menu
+            """
+        )
+        try:
+            choice = int(input("\tChoice", choices=["1", "2", "3", "4", "5", "99"]))
+            match choice:
+                case 1:
+                    pass
+                case 2:
+                    pass
+                case 3:
+                    pass
+                case 4:
+                    pass
+                case 5:
+                    pass
+                case 99:
+                    break
+        except TypeError:
+            pass

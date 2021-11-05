@@ -5,6 +5,7 @@ from .git_log import main as lg
 from .remote import main as r
 from .branch_manipulation import main as br
 from .stash import main as stash
+from .patch import main as patch
 
 
 def main():
@@ -32,7 +33,7 @@ def main():
                 case 4:
                     stash()
                 case 5:
-                    pass
+                    patch()
                 case 6:
                     lg()
                 case 99:
