@@ -58,3 +58,21 @@ def drop_stash():
         except KeyboardInterrupt:
             pass
     enter_prompt()
+
+
+def branch_from_stash():
+    while True:
+        stashes = [line.split(": ")[2].strip("'") for line in get_stashes()]
+        if len(stashes) == 0:
+            warning("You Have No Stashes")
+        else:
+            try:
+                name = input("\tName Of New Branch", override="grey84")
+                if " " in name:
+                    warning("Cannot have spaces in a branch name")
+                    continue
+                st = input("\tWhich Stash Do You Want To Use? (warning: will get deleted)", override="tan", choices=stashes)
+                call(f"git stash branch {name} {get_index(st)}")
+                break
+            except KeyboardInterrupt:
+                pass

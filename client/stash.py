@@ -26,7 +26,7 @@ def main():
                 case 4:
                     drop_stash()
                 case 5:
-                    pass
+                    branch_from_stash()
                 case 99:
                     break
         except TypeError:
