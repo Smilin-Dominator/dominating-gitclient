@@ -153,7 +153,7 @@ def push():
             log = getoutput(f"git push")
             if log.startswith(f"fatal: The current branch {get_branch()} has no upstream branch"):
                 warning("Your branch doesn't have an upstream branch")
-                conf = input("\tWould you like to set it upstream?", choices=["y", "n"])
+                conf = input("\tWould you like to set it upstream?", choices=["y", "n"], override="tan")
                 if conf == "y":
                     set_branch_upstream(get_branch(), remotes[0])
             else:
