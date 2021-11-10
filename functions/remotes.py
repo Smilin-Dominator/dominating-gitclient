@@ -114,7 +114,7 @@ def manage_remotes():
 
 
 def fetch():
-    call(["git", "fetch"], shell=True, stdout=DEVNULL, stderr=DEVNULL)
+    call(["git", "fetch", "--all"], shell=True, stdout=DEVNULL, stderr=DEVNULL)
 
 
 def pull():
@@ -151,12 +151,13 @@ def push():
                 manage_remotes()
         elif len(remotes) == 1:
             log = getoutput(f"git push")
-            print(log)
-            if log.startswith("fatal: couldn't find remote ref"):
+            if log.startswith(f"fatal: The current branch {get_branch()} has no upstream branch"):
                 warning("Your branch doesn't have an upstream branch")
-                conf = input("Would you like to set it upstream?", choices=["y", "n"])
+                conf = input("\tWould you like to set it upstream?", choices=["y", "n"], override="tan")
                 if conf == "y":
                     set_branch_upstream(get_branch(), remotes[0])
+            else:
+                print(log)
         else:
             remote = input("Which Remote Do You Want To Pull From?", choices=remotes, override="dark_orange")
             call(f"git pull {remote} {get_branch()}")
