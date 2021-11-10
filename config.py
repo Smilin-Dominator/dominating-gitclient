@@ -4,6 +4,7 @@ from rich.syntax import Syntax
 from rich.progress import track
 from subprocess import getoutput
 from os import getcwd, system
+from platform import system as plat
 import logging
 
 log_format = '%(asctime)s (%(filename)s): %(message)s'
@@ -13,6 +14,7 @@ logging.basicConfig(filename="log.txt", format=log_format)
 console = Console(color_system="256")
 syntax = Syntax
 track = track
+platform = plat()
 
 
 def print(prompt, override: str = None) -> None:
@@ -74,13 +76,15 @@ def get_branch() -> str:
         return raw
 
 
-
 def header(*modules: str):
     modules = list(modules)
     for i in range(modules.count("")):
         modules.remove("")
     modules = "\n\t".join(modules)
-    system("cls")
+    if platform == "Windows":
+        system("cls")
+    else:
+        system("clear")
     print(f"""[pale_turquoise1]
              .oooooo..o                    o8o  oooo   o8o              o8o                                  
             d8P'    `Y8                    `"'  `888   `"'              `YP                                  
