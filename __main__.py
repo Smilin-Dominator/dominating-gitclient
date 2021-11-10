@@ -15,7 +15,7 @@ def first_time_check():
         setup()
 
 
-def config():
+def config() -> str:
 
     def update():
         number = ar['update_check_frequency']
@@ -49,21 +49,27 @@ def config():
 
     conf = Config()
     ar = conf.parse_config()
-    if ar['update_check_frequency'] != 0:
-        update()
+    try:
+        if ar['update_check_frequency'] != 0:
+            update()
+        return ar['default_dir']
+    except KeyError:
+        error("There's been an unsatisfied option, rebuilding config")
+        conf.write_config()
 
 
 if __name__ == "__main__":
-    config()
-    if len(argv) < 2:
-        warning("Not Enough Arguments")
-        exit(1)
+    default = config()
+    directory = ""
     try:
-        chdir(argv[1])
+        if len(argv) < 2:
+            directory = default
+            chdir(directory)
+        else:
+            directory = argv[1]
+            chdir(directory)
     except FileNotFoundError:
-        error("Specified Directory Not Found!")
+        error(f"Directory '{directory}' Not Found!")
         exit(2)
     first_time_check()
     cl()
-
-
