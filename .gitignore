@@ -7,3 +7,4 @@ dist
 !requirements.txt
 *.yml
 venv/*
+*.json
