@@ -1,4 +1,4 @@
-from config import header, print, warning
+from config import print, input, warning
 from pathlib import Path
 from json import loads, dumps
 
@@ -11,9 +11,8 @@ class Config(object):
 
     def write_config(self) -> None:
         config = self.WriteJSON()
-        config.__add__("field1", "a")
-        config.__add__("field2", "b")
-        config.__add__("field3", "c")
+        choice = int(input("\tCheck For Updates? (Per x Boot, 0 for Never)", default="4", choices=["0", "1", "2", "3", "4"], override="tan"))
+        config.__add__("update_check_frequency", choice)
         config_file = open(self.file, "w+")
         json_dump = dumps(config.__get__(), indent=4)
         config_file.write(json_dump)
