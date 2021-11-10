@@ -11,8 +11,13 @@ class Config(object):
 
     def write_config(self) -> None:
         config = self.WriteJSON()
+
         choice = int(input("\tCheck For Updates? (Per x Boot, 0 for Never)", default="4", choices=["0", "1", "2", "3", "4"], override="tan"))
         config.__add__("update_check_frequency", choice)
+
+        choice = input("\tDefault Directory (goes here if no args are given)", override="orange1")
+        config.__add__("default_dir", choice)
+
         config_file = open(self.file, "w+")
         json_dump = dumps(config.__get__(), indent=4)
         config_file.write(json_dump)
