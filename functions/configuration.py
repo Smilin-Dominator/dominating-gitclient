@@ -1,14 +1,13 @@
 from config import header, print, warning
-from os import path
+from pathlib import Path
 from json import loads, dumps
 
 
 class Config(object):
 
     def __init__(self):
-        file = path.abspath(__file__)
-        file = file.split("/")[:2]
-        self.file = path.join("/".join(file), "/", "config.json")
+        file = __file__[:-27]
+        self.file = Path(file, "config.json")
 
     def write_config(self) -> None:
         pass
