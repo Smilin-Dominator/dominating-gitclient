@@ -7,6 +7,12 @@ from .stashes import get_index, stash
 
 
 def cloud_save(branch: str, options=None):
+    """
+    Stashes Current Working Directory, Checks Out Branch and Pops The Stash
+
+    :param branch: The branch to checkout
+    :param options: options in the command, such as '--track'
+    """
     call(f"git stash -m 'gc_temp'", shell=True, stdout=DEVNULL, stderr=DEVNULL)
     if options is not None:
         call(["git", "checkout", options, branch], shell=True, stdout=DEVNULL, stderr=DEVNULL)
@@ -16,6 +22,12 @@ def cloud_save(branch: str, options=None):
 
 
 def set_header(get=None):
+    """
+    Sets the header or returns the branch list
+
+    :param get: If this is None, it sets the header
+    :return: If get is not None, it returns the list of local and remote branches
+    """
     local = getoutput("git for-each-ref --format='%(refname:short)' refs/heads").splitlines()
     remote = getoutput("git for-each-ref --format='%(refname:short)' refs/remotes").splitlines()
     if get is None:
@@ -28,6 +40,11 @@ def set_header(get=None):
 
 
 def display_branches() -> tuple[list[str], list[str]]:
+    """
+    This prints the branch list in order and returns a tuple, so the displayed index is the real index of the tuple
+
+    :return: Local and Remote Branch Lists respectively
+    """
     local, remote = set_header("get")
     print("\n\tLocal Branches:", override="spring_green2")
     index = 0
@@ -42,6 +59,10 @@ def display_branches() -> tuple[list[str], list[str]]:
 
 
 def checkout():
+    """
+    Checks out a branch using cloudsave() and tracks the branch if its a remote branch which
+    doesn't have a local branch.
+    """
     l, r = display_branches()
     all = l + r
     length = len(all)
@@ -59,6 +80,9 @@ def checkout():
 
 
 def create_branch():
+    """
+    Creates a branch and resets the process if it detects that there's a space in the name
+    """
     while True:
         try:
             name = input("\tName of New Branch (Ctrl+C To Abort)", override="green1")
@@ -90,6 +114,9 @@ def create_branch():
 
 
 def merge():
+    """
+    Merges two branches and prompts to stash if there are local changes
+    """
     def merge_func(branch: str):
         log = getoutput(f"git merge {branch}")
         with console.pager(styles=True):
@@ -122,6 +149,9 @@ def merge():
 
 
 def delete():
+    """
+    Deletes a branch
+    """
     local, _ = set_header("get")
     local = [a.strip("'") for a in local]
     if len(local) < 2:

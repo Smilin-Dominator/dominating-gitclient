@@ -1,5 +1,8 @@
 from subprocess import getoutput
 
+"""
+These functions are self explanatory
+"""
 
 def modified_files():
     return getoutput("git ls-files -m").splitlines()

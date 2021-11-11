@@ -7,6 +7,7 @@ from os import getcwd, system
 from platform import system as plat
 import logging
 
+
 log_format = '%(asctime)s (%(filename)s): %(message)s'
 logging.basicConfig(filename="log.txt", format=log_format)
 
@@ -18,6 +19,12 @@ platform = plat()
 
 
 def print(prompt, override: str = None) -> None:
+    """
+    This replaces print with rich's console.print(), which allows styling with colours
+
+    :param prompt: The Text To Display
+    :param override: Style the text with this colour / effect
+    """
     if override is not None:
         console.print(f"[{override}]{prompt}[/{override}]")
     else:
@@ -25,6 +32,12 @@ def print(prompt, override: str = None) -> None:
 
 
 def error(msg: str, override: str = None) -> None:
+    """
+    This is the same as print but styles the text as white on a red background and logs msg as an error
+
+    :param msg: The Text To Display
+    :param override: Style the text with this colour / effect
+    """
     if override is None:
         print(f"\t[white on red][@] {msg}[/white on red]")
     else:
@@ -33,6 +46,12 @@ def error(msg: str, override: str = None) -> None:
 
 
 def warning(msg: str, override: str = None) -> None:
+    """
+    Same as print but styles it as white on a yellow and logs msg as a warning
+
+    :param msg: The Text To Display
+    :param override: Style the text with this colour / effect
+    """
     if override is None:
         print(f"\t[white on yellow][!] {msg}[/white on yellow]")
     else:
@@ -41,6 +60,12 @@ def warning(msg: str, override: str = None) -> None:
 
 
 def info(msg: str, override: str = None) -> None:
+    """
+    Same as print but prefixes it with [?]
+
+    :param msg:
+    :param override:
+    """
     if override is not None:
         print(f"\t[{override}][?] {msg}[/{override}]")
     else:
@@ -48,6 +73,16 @@ def info(msg: str, override: str = None) -> None:
 
 
 def input(prompt: str, override: str = None, default=None, password=False, choices=None) -> str:
+    """
+    This is a very advanced input prompt which uses rich's prompt function
+
+    :param prompt: The Message To Display
+    :param override: Colours To Surround The Prompt In
+    :param default: The Default Value (Comes When You Hit Enter)
+    :param password: If set to true, hides the input
+    :param choices: The prompt will loop until one of these choices are entered
+    :return:
+    """
     if override is not None:
         return Prompt.ask(f"[{override}]{prompt}[/{override}]", default=default, password=password, choices=choices)
     else:
@@ -55,11 +90,17 @@ def input(prompt: str, override: str = None, default=None, password=False, choic
 
 
 def enter_prompt():
+    """An Enter Prompt"""
     input("\t[*] Click (enter) to continue", override="tan")
 
 
 # ---------------------- Other Functions ---------------------------------------
 def last_commit() -> str:
+    """
+    Returns the last commit's subject
+
+    :return: the last commit's subject
+    """
     raw = getoutput('git log -1 --pretty=%B')
     new = raw.splitlines()[0]
     if raw.startswith("fatal"):
@@ -69,6 +110,11 @@ def last_commit() -> str:
 
 
 def get_branch() -> str:
+    """
+    Checks and returns the current branch
+
+    :return: the current branch
+    """
     raw = getoutput('git rev-parse --abbrev-ref HEAD')
     if raw.startswith("fatal"):
         return "None"
@@ -77,6 +123,11 @@ def get_branch() -> str:
 
 
 def header(*modules: str):
+    """
+    Sets the header, by clearing the screen and drawing Smilin' Dominator and displaying modules
+
+    :param modules: Modules to add (eg: '[red]Something[/red]')
+    """
     modules = list(modules)
     for i in range(modules.count("")):
         modules.remove("")

@@ -4,6 +4,12 @@ from subprocess import call, DEVNULL, getoutput
 
 
 def stage_files(get_files):
+    """
+    Prints a list of modified, new, deleted and staged files and allows you to change their status
+
+    :param get_files: The function get_files()
+    :return:
+    """
     while True:
         files = get_files("g")
         staged = files[0]
@@ -49,6 +55,11 @@ def stage_files(get_files):
 
 
 def reset(files):
+    """
+    Resets a file to HEAD
+
+    :param files: The list of files
+    """
     staged = files[0]
     modified = files[1]
     new = files[2]
@@ -83,10 +94,12 @@ def reset(files):
 
 
 def commit():
+    """Commits the staged files"""
     call("git commit", shell=True, stdout=DEVNULL, stderr=DEVNULL)
 
 
 def diff_staged():
+    """Pages the difference of staged files"""
     with console.pager(styles=True):
         out = syntax(getoutput("git diff --staged"), background_color="default", lexer_name="diff")
         console.print(out)
@@ -94,6 +107,7 @@ def diff_staged():
 
 
 def diff():
+    """Pages the difference of all files"""
     with console.pager(styles=True):
         out = syntax(getoutput("git diff"), background_color="default", lexer_name="diff")
         console.print(out)
