@@ -1,5 +1,5 @@
-from config import input
 from functions.branch_manipulation import *
+from config import input
 
 
 def main():

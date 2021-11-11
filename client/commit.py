@@ -4,6 +4,12 @@ from config import header, input, print
 
 
 def set_header(get=None):
+    """
+    Draws the header or returns the list of files
+
+    :param get: If you don't fill this parameter, it draws the header.
+    :return: If get is not None, it returns the list of staged, modified, new and deleted files
+    """
     sf, mf, nf, df = "", "", "", ""
     if get is None:
         if staged_files():
