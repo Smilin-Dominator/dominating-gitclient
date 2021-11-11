@@ -15,7 +15,7 @@ def first_time_check():
         setup()
 
 
-def config() -> str:
+def config() -> [str, tuple]:
 
     def update():
         number = ar['update_check_frequency']
@@ -52,21 +52,26 @@ def config() -> str:
     try:
         if ar['update_check_frequency'] != 0:
             update()
-        return ar['default_dir']
+        return ar['default_dir'], ar['aliases']
     except KeyError:
         error("There's been an unsatisfied option, rebuilding config")
         conf.write_config()
 
 
 if __name__ == "__main__":
-    default = config()
+    default, aliases = config()
     directory = ""
     try:
         if len(argv) < 2:
             directory = default
             chdir(directory)
         else:
-            directory = argv[1]
+            for entry in aliases:
+                if entry['Name'] == argv[1]:
+                    directory = entry['Directory']
+                    break
+            else:
+                directory = argv[1]
             chdir(directory)
     except FileNotFoundError:
         error(f"Directory '{directory}' Not Found!")

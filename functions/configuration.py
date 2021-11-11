@@ -1,4 +1,4 @@
-from config import print, input, warning
+from config import info, input, warning
 from pathlib import Path
 from json import loads, dumps
 
@@ -18,6 +18,19 @@ class Config(object):
         choice = input("\tDefault Directory (goes here if no args are given)", override="orange1")
         config.__add__("default_dir", choice)
 
+        info("Add Your Directory Aliases Below (Ctrl+C when Done)")
+        aliases = []
+        while True:
+            try:
+                temp_dict = {
+                    "Name": input("\tName", override="pale_turquoise1"),
+                    "Directory": input("\tDirectory", override="gold3")
+                }
+                aliases.append(temp_dict)
+            except KeyboardInterrupt:
+                break
+        config.__add__("aliases", aliases)
+
         config_file = open(self.file, "w+")
         json_dump = dumps(config.__get__(), indent=4)
         config_file.write(json_dump)
@@ -25,12 +38,13 @@ class Config(object):
         config_file.close()
 
     def parse_config(self) -> dict:
-        try:
-            config_file = open(self.file, "r")
-            return loads(config_file.read())
-        except FileNotFoundError:
-            warning("No Config File Found, Making One")
-            self.write_config()
+        while True:
+            try:
+                config_file = open(self.file, "r")
+                return loads(config_file.read())
+            except FileNotFoundError:
+                warning("No Config File Found, Making One")
+                self.write_config()
 
     class WriteJSON(object):
 
