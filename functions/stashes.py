@@ -3,10 +3,12 @@ from config import header, input, warning, enter_prompt
 
 
 def get_stashes():
+    """Returns the stash list"""
     return getoutput("git stash list").splitlines()
 
 
 def set_header():
+    """Sets the header with the stash list"""
     stashes = get_stashes()
     stash_messages = [line.split(": ")[2].strip("'") for line in stashes]
     header(
@@ -15,6 +17,12 @@ def set_header():
 
 
 def get_index(message: str) -> int:
+    """
+    Finds the index of the stash with a message
+
+    :param message: the message of the stash
+    :return: The index
+    """
     stashes = get_stashes()
     for line in stashes:
         line = line.split(": ")
@@ -23,6 +31,7 @@ def get_index(message: str) -> int:
 
 
 def stash(message: str = None):
+    """Stashes Your Changes"""
     if message is not None:
         message = message
     else:
@@ -31,6 +40,7 @@ def stash(message: str = None):
 
 
 def apply_stash(pop: bool):
+    """Applies or Pops A Stash"""
     stashes = get_stashes()
     if len(stashes) == 0:
         warning("You Have No Stashes")
@@ -48,6 +58,7 @@ def apply_stash(pop: bool):
 
 
 def drop_stash():
+    """Removes a stash permanently"""
     stashes = [line.split(": ")[2].strip("'") for line in get_stashes()]
     if len(stashes) == 0:
         warning("You Have No Stashes")
@@ -61,6 +72,7 @@ def drop_stash():
 
 
 def branch_from_stash():
+    """Creates a branch from a stash"""
     while True:
         stashes = [line.split(": ")[2].strip("'") for line in get_stashes()]
         if len(stashes) == 0:
