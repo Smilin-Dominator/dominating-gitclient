@@ -3,6 +3,12 @@ from subprocess import getoutput, call, DEVNULL
 
 
 def set_header(get=None):
+    """
+    Sets header or returns remote
+
+    :param get: if get is none, it sets the header
+    :return: If get is not none, it returns the list of remotes
+    """
     remotes = getoutput('git remote').splitlines()
     if get is None:
         header(
@@ -13,6 +19,12 @@ def set_header(get=None):
 
 
 def set_branch_upstream(branch=None, remote=None):
+    """
+    Sets a branch upstream
+
+    :param branch: The branch to set upstream
+    :param remote: The remote to set upstream to
+    """
     if branch and remote is None:
         pass
     else:
@@ -20,6 +32,7 @@ def set_branch_upstream(branch=None, remote=None):
 
 
 def manage_remotes():
+    """This is the manage remotes section. There are nested functions here, as its its own interface"""
 
     def add_remote():
         while True:
@@ -118,6 +131,7 @@ def fetch():
 
 
 def pull():
+    """Pulls changes from the remote branch"""
     try:
         remotes = set_header("get")
         if len(remotes) == 0:
@@ -142,6 +156,7 @@ def pull():
 
 
 def push():
+    """Pushes current branch to a remote"""
     try:
         remotes = set_header("get")
         if len(remotes) == 0:
