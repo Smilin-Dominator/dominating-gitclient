@@ -2,6 +2,9 @@ from config import header, input, warning, enter_prompt
 from os import path
 from subprocess import call, DEVNULL, getoutput
 
+"""
+These functions are self explanatory
+"""
 
 def set_header():
     header()
