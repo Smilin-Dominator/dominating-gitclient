@@ -10,14 +10,32 @@ from pathlib import Path
 
 
 def first_time_check():
+    """
+    This just checks if you're in a git repo, and if not, launches functions.first_time.main()
+    :return: Nothing
+    """
     key = getoutput("git rev-parse --is-inside-work-tree")
     if key == "fatal: not a git repository (or any of the parent directories): .git":
         setup()
 
 
-def config() -> [str, tuple]:
+def config() -> [str, tuple[dict]]:
+    """
+    This parses the config.json file
 
+    if `update_check_frequency` is not 0 (which is never update), and the number in count.txt is equal to the
+    number specified in `update_check_frequency`, it checks for an update and if there is one, asks for confirmation.
+
+    if there's a KeyError (which may occur if the client has the latest version and an outdated Config or no config at
+    all or tampered), it'll rewrite the config.
+
+    :return: The Default Directory (String) and the Aliases (Tuple of Dicts)
+    """
     def update():
+        """
+        This function updates if the number in count.txt is equal to the specified number and there's an update available.
+        :return: Nothing
+        """
         number = ar['update_check_frequency']
         count = Path(str(conf.file)[:-11], "count.txt")
         try:
@@ -42,6 +60,12 @@ def config() -> [str, tuple]:
                 write(count, "1")
 
     def write(file: Path, contents: str):
+        """
+        This function writes to a file, flushes and closes
+        :param file: A Path Object, which is the path to the file
+        :param contents: The Contents To Write To The File
+        :return: Nothing
+        """
         fil = open(file, "w")
         fil.write(contents)
         fil.flush()
